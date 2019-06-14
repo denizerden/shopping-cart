@@ -1,4 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>Product: {{ product_id }}</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col text-center product-image">
+      <img src="{{ url_for('static', filename='img/ex2.jpg') }}" class="img-fluid">
+
+    </div>
+    <div class="col  pt-1">
+      <div class="container ">
+        <div class="row ">
+          <h1 class="product-name " id="product-name" >Lipstick</h1>
+        </div>
+        <div class="row mt-3">
+          <span class="text-justify product-details" id="product-details">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis nec est id aliquet. Curabitur congue pharetra ex, sit amet commodo purus dignissim eget. In lobortis dolor at malesuada mattis. Donec euismod porttitor lacus sit amet pretium. Maecenas pellentesque posuere dolor eget accumsan. In eu cursus dolor. Aenean porttitor sit amet eros at mollis. Duis varius nibh sit amet nulla cursus dictum in nec libero.
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
