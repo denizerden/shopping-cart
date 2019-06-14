@@ -1,13 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="container">
   <div class="row">
     <div class="col text-center product-image">
-      <img src="{{ url_for('static', filename='img/ex2.jpg') }}" class="img-fluid">
+      <img src="{{ url_for('static', filename='img/ex2.jpg') }}" >
 
     </div>
-    <div class="col  pt-1">
+    <div class="col  pt-2">
       <div class="container ">
         <div class="row ">
           <h1 class="product-name " id="product-name" >Lipstick</h1>
@@ -19,7 +18,14 @@
 
       </div>
     </div>
+
+    <div class="floating-menu">
+      <h3>Floating Menu</h3>
+
+
+
+    </div>
   </div>
-</div>
+
 
 {% endblock content %}
