@@ -6,6 +6,16 @@ img{
     overflow: auto;
 
 }
+body {
+
+    background-color: #fafafa;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+
+
+}
 .floating-menu {
     font-family: sans-serif;
     background: white;
@@ -29,15 +39,7 @@ img{
     margin: 0 0.5em;
     color: white;
 }
-body {
 
-   background-color: #fafafa;
-    font-size: 1.6rem;
-    line-height: 1.5;
-
-
-
-}
 #product-name.product-name{
 
 
@@ -46,5 +48,15 @@ body {
 
 #product-details.product-details{
     font-size: 15px;
+
+}
+
+@media  (max-width:380px){
+    .floating-menu{
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        left: 0px;
+    }
 
 }
