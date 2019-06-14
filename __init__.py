@@ -8,4 +8,3 @@ app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017/cart'
 db = PyMongo(app).db
 
 import routes
-
