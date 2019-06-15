@@ -16,29 +16,7 @@ body {
 
 
 }
-.floating-menu {
-    font-family: sans-serif;
-    background: white;
-    padding: 5px;;
-    width: 90vw;
-    height: 15%;
-    z-index: 100;
-    position: fixed;
-    left: 5%;
-    bottom: 8%;
-    border-radius: 2px;
-    -webkit-box-shadow: 0px 0px 41px -3px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 0px 41px -3px rgba(0,0,0,0.5);
-    box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.5);
 
-}
-.floating-menu a,
-.floating-menu h3 {
-    font-size: 0.9em;
-    display: block;
-    margin: 0 0.5em;
-    color: white;
-}
 
 #product-name.product-name{
 
@@ -50,13 +28,48 @@ body {
     font-size: 15px;
 
 }
+.floating-menu {
+    font-family: sans-serif;
+    background: white;
+    height: 55px;
+    width: 90vw;
+    z-index: 100;
+    left: 5%;
+    bottom: 0%;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 41px -3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 41px -3px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.5);
+
+    padding-bottom: 1%;
+    padding-top: 1%;
+    position: sticky;
+    margin:4%;
+}
+.floating-menu img
+{
+    width: auto;
+    height: -webkit-fill-available;
+
+}
+.add-to-card{
+    float: right;
+    margin-right: 5%;
+    padding-bottom: 0%;
+}
+
+
 
 @media  (max-width:380px){
     .floating-menu{
-        position: fixed;
-        bottom: 0px;
-        width: 100%;
+        position: sticky;
+        bottom: 0%;
+        width: 90vw;
         left: 0px;
+        padding: 3%;
+        height: 55px;
+        margin: 8%;
     }
 
-}
+    }
+
