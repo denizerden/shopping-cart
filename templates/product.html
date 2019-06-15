@@ -3,26 +3,32 @@
 
   <div class="row mr-lg-3 mr-sm-0 mb-xs-5">
     <div class="col-sm p-0 text-center product-image">
-      <img src="{{ url_for('static', filename='img/ex2.jpg') }}" >
+      <img alt="Product image" src="{{ url_for('static', filename='img/' + product.image_file) }}" >
 
     </div>
     <div class="col-sm  pt-2 m-3 mr-md-3 ">
 
         <div class="row ">
-          <h1 class="product-name " id="product-name" >Lipstick</h1>
+          <h1 class="product-name " id="product-name" >{{product.title}}</h1>
         </div>
         <div class="row mt-3">
-          <span class="text-justify product-details" id="product-details">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis nec est id aliquet. Curabitur congue pharetra ex, sit amet commodo purus dignissim eget. In lobortis dolor at malesuada mattis. Donec euismod porttitor lacus sit amet pretium. Maecenas pellentesque posuere dolor eget accumsan. In eu cursus dolor. Aenean porttitor sit amet eros at mollis. Duis varius nibh sit amet nulla cursus dictum in nec libero.
-          </span>
+          <span class="text-justify product-details" id="product-details">{{product.description}}</span>
         </div>
 
 
     </div>
 
     <div class="floating-menu">
-        <img src="{{ url_for('static', filename='img/ex2.jpg') }}"  class="floating-menu-img">
-
-        <input class="btn btn-primary btn-lg add-to-card" type="submit" value="Add To Card" id="addItem" onclick="addToDatabase(id)" >
+      <div class="row">
+        <div class="col">
+          <img src="{{ url_for('static', filename='img/' + product.image_file ) }}"  class="floating-menu-img">
+        </div>
+        <div class="col">
+          <!-- <form action="" method="post"> -->
+            <input class="btn btn-primary btn-lg add-to-card" type="submit" value="Add To Card" id="addItem" onclick="addToDatabase()" >
+          <!-- </form> -->
+        </div>
+      </div>
 
     </div>
   </div>

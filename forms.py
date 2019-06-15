@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, DecimalField
+from wtforms import StringField, TextAreaField, SubmitField, DecimalField, IntegerField
 from wtforms.validators import DataRequired, Length
 
 
@@ -9,4 +9,5 @@ class ProductForm(FlaskForm):
     description = TextAreaField('Description',
         validators=[DataRequired(), Length(max=1000)])
     price = DecimalField('Price', validators=[DataRequired()])
+    image_file = StringField('Image file', default='default.jpg')
     submit = SubmitField('Save')
