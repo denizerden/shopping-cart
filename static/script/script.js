@@ -1,4 +1,4 @@
-
+let json;
 function addToDatabase(addItem) {
     // const product = {
     //     title: "POST Product",
@@ -22,7 +22,7 @@ function addToDatabase(addItem) {
 
 
 let shoppingCart = (function () {
-    let json;
+
     const url = document.URL;
     const tokens = url.split('/');
     const product_id = tokens[tokens.length - 1];
@@ -130,18 +130,19 @@ $('.add-to-cart').click(function(event) {
 function displayCart(){
 
 
-    cartArray = shoppingCart.addItemToCart();
+
+    console.log(json);
     let output = "";
 
         output += "<tr>"
             + "<td>" + cartArray[i].name + "</td>"
             + "<td>(" + cartArray[i].price + ")</td>"
-            + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-name=" + cartArray[i].name + ">-</button>"
-            + "<input type='number' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>"
-            + "<button class='plus-item btn btn-primary input-group-addon' data-name=" + cartArray[i].name + ">+</button></div></td>"
-            + "<td><button class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>"
+            + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-name=" + json.title + ">-</button>"
+            + "<input type='number' class='item-count form-control' data-name='" + json.title + "' value='" + cartArray[i].count + "'>"
+            + "<button class='plus-item btn btn-primary input-group-addon' data-name=" + json.title + ">+</button></div></td>"
+            + "<td><button class='delete-item btn btn-danger' data-name=" + json.title + ">X</button></td>"
             + " = "
-            + "<td>" + cartArray[i].total + "</td>"
+            + "<td>" + json.price + "</td>"
             +  "</tr>";
 
     $('.show-cart').html(output);
