@@ -8,38 +8,32 @@
       </div>
 
     <div class="col-sm  pt-2 m-3 mr-md-3 ">
-
         <div class="row ">
           <h1 class="product-name " id="product-name" >{{product.title}}</h1>
         </div>
         <div class="row mt-3">
           <span class="text-justify product-details" id="product-details">{{product.description}}</span>
         </div>
-
-
     </div>
+
     <div class="floating-menu">
-        <table class="show-cart table">
-
-        </table>
-    </div>
-
-    <!--<div class="floating-menu">
       <div class="row">
-        <div class="col">
+        <div class="col-2">
           <img src="{{ url_for('static', filename='img/' + product.image_file ) }}"  class="floating-menu-img">
         </div>
-        <div class="col">
-          <!- <form action="" method="post"> ->
+        <div class="col-7">
+           <form action="" method="post">
             <div class="shop-item-details">
-                <span class="shop-item-price">$12.99</span>
-                <input class="btn btn-primary add-to-card" type="submit" id="addItem on" value="Add to Card"/>
-            </div>
-            <!- </form> ->
-        </div>
+                <span class="shop-item-price">${{product.price}}</span>
+              </div>
+            </form>
+          </div>
+          <div class="col-3">
+            <input class="btn btn-outline-primary add-to-card" type="submit" id="addToCartBtn" value="Add to Cart"/>
+          </div>
       </div>
 
-    </div>-->
+    </div>
   </div>
 
 
