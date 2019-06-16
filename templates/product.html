@@ -21,14 +21,25 @@
         <div class="col-2">
           <img src="{{ url_for('static', filename='img/' + product.image_file ) }}"  class="floating-menu-img">
         </div>
-        <div class="col-7">
+        <div class="col-3 px-0">
            <form action="" method="post">
             <div class="shop-item-details">
                 <span class="shop-item-price">${{product.price}}</span>
               </div>
             </form>
           </div>
-          <div class="col-3">
+          <div class="col-3 px-0" style="right: 0%">
+              <div class="input-group" >
+                    <span class="input-group-btn">
+                        <button class="btn btn-white btn-minuse" type="button">-</button>
+                    </span>
+                    <input type="text" class="form-control no-padding add-color text-center height-25" maxlength="3" value="0">
+                    <span class="input-group-btn">
+                        <button class="btn btn-red btn-pluss" type="button">+</button>
+                    </span>
+              </div><!-- /input-group -->
+          </div>
+          <div class="col-3 px-0">
             <input class="btn btn-outline-primary add-to-card" type="submit" id="addToCartBtn" value="Add to Cart"/>
           </div>
       </div>
