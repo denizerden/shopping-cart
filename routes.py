@@ -3,6 +3,7 @@ from flask import render_template, flash, redirect, url_for, request
 from forms import ProductForm
 from models import Product
 from datetime import datetime
+import json
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -25,17 +26,12 @@ def hello_world():
 
 @app.route('/product', methods=['GET', 'POST'])
 def product(product_id):
+    product_id = request.args.get('id')
     return render_template('product.html')
 
 
 @app.route('/product/<product_id>', methods=['GET', 'POST'])
 def test(product_id):
-    if request.method == 'POST':
-        title = request.values.get('title', '')
-        description = request.values.get('description', '')
-        price = request.values.get('price', '')
-        # TODO: actually add the product to cart
-        return 'success'
     product = None
     try:
         product = Product.objects.get(id=product_id)
@@ -45,4 +41,9 @@ def test(product_id):
             price=123,
             image_file="ex2.jpg",
             created_on=datetime.utcnow())
+    if request.method == 'POST':
+        product_id = request.values.get('id', '')
+        product = Product.objects.get(id=product_id)
+        # TODO: actually add the product to cart
+        return product.to_json()
     return render_template('product.html', product=product)
