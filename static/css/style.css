@@ -58,7 +58,9 @@ body {
     padding-bottom: 0%;
 }
 
-
+.input-group{
+    width: 73%;
+}
 
 @media  (max-width:380px){
     .floating-menu{
