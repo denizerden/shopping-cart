@@ -2,10 +2,11 @@
 {% block content %}
 
   <div class="row mr-lg-3 mr-sm-0 mb-xs-5">
-    <div class="col-sm p-0 text-center product-image">
-      <img alt="Product image" src="{{ url_for('static', filename='img/' + product.image_file) }}" >
+      <div class="col-sm p-0 text-center product-image">
+          <!--<img alt="Product image" src="{{ url_for('static', filename='img/ex2.jpg') }}" -->
+          <img alt="Product image" src="{{ url_for('static', filename='img/' + product.image_file) }}" >
+      </div>
 
-    </div>
     <div class="col-sm  pt-2 m-3 mr-md-3 ">
 
         <div class="row ">
@@ -17,20 +18,28 @@
 
 
     </div>
-
     <div class="floating-menu">
+        <table class="show-cart table">
+
+        </table>
+    </div>
+
+    <!--<div class="floating-menu">
       <div class="row">
         <div class="col">
           <img src="{{ url_for('static', filename='img/' + product.image_file ) }}"  class="floating-menu-img">
         </div>
         <div class="col">
-          <!-- <form action="" method="post"> -->
-            <input class="btn btn-primary btn-lg add-to-card" type="submit" value="Add To Card" id="addItem" onclick="addToDatabase()" >
-          <!-- </form> -->
+          <!- <form action="" method="post"> ->
+            <div class="shop-item-details">
+                <span class="shop-item-price">$12.99</span>
+                <input class="btn btn-primary add-to-card" type="submit" id="addItem on" value="Add to Card"/>
+            </div>
+            <!- </form> ->
         </div>
       </div>
 
-    </div>
+    </div>-->
   </div>
 
 
