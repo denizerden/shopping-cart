@@ -27,11 +27,17 @@ class Item {
 
 function saveCart() {
     sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
+    $.post('/saveCart', JSON.stringify(cart), result => {
+        if (result === 'success') {
+            console.log('Cart updated');
+        } else {
+            console.log('An error occured while updating the cart');
+        }
+    });
 }
 
 function loadCart() {
     cart = JSON.parse(sessionStorage.getItem('shoppingCart')) || {};
-    console.log(cart);
 }
 
 $(document).ready(function() {
@@ -45,7 +51,6 @@ function addItem(item) {
         cart[item.id] = item.count;
     }
     saveCart();
-    console.log(cart);
 }
 
 function setCount(item, count) {

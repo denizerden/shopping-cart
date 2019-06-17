@@ -2,7 +2,7 @@ from __init__ import app
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, current_user, logout_user, login_required
 from forms import ProductForm, LoginForm, RegisterForm
-from models import Product, User
+from models import Product, User, CartItem
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
@@ -90,6 +90,16 @@ def product():
                           image_file="ex2.jpg",
                           created_on=datetime.utcnow())
     return render_template('product.html', title=product.title, product=product)
+
+
+@app.route('/saveCart', methods=['GET', 'POST'])
+def save_cart():
+    if request.method == 'POST' and current_user.is_authenticated:
+        json_data = request.get_json(force=True)
+        current_user.cart = [CartItem(product_id=key, quantity=value) for
+                             key, value in json_data.items()]
+        current_user.save()
+    return 'success'
 
 
 '''
