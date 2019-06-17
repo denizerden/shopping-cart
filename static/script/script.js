@@ -1,11 +1,20 @@
 let cart = {};
 
-$("#addToCartBtn").click(function() {
-    const url = document.URL;
-    const tokens = url.split('/');
-    const product_id = tokens[tokens.length - 1];
+function getQueryVariable(variable) {
+    let query = window.location.search.substring(1);
+    let vars = query.split("&");
+    for (let i=0;i<vars.length;i++) {
+        let pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            return pair[1];
+        }
+    }
+}
 
-    addItem(new Item(product_id, 1));
+$("#addToCartBtn").click(function() {
+    let product_id = getQueryVariable('id');
+    let count = parseInt($('#counter').val());
+    addItem(new Item(product_id, count));
 });
 
 
