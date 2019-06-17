@@ -9,13 +9,29 @@ img{
 body {
 
     background-color: #fafafa;
-    font-size: 1.6rem;
     line-height: 1.5;
     margin: 0;
+    margin-top: 3.5rem;
     padding: 0;
 
 
 }
+
+.bg-steel {
+    background-color: #5f788a;
+  }
+  
+  .site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+  }
+  
+  .site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+  }
+  
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
 
 
 #product-name.product-name{
