@@ -6,6 +6,7 @@ from models import Product, User
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
+import os
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -89,3 +90,24 @@ def product():
                           image_file="ex2.jpg",
                           created_on=datetime.utcnow())
     return render_template('product.html', title=product.title, product=product)
+
+
+'''
+This part is for development server only, in order to force reloading of
+cached files.
+'''
+
+
+@app.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                     endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
