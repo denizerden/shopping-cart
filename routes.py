@@ -36,6 +36,25 @@ def new_product():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        user = None
+        try:
+            user = User.objects.get(username=form.username.data)
+        except:
+            pass
+        print(user)
+        if user is not None:
+            flash('That email is already registered.', 'danger')
+            return redirect(url_for('register'))
+
+        user = None
+        try:
+            user = User.objects.get(email=form.email.data)
+        except:
+            pass
+        print(user)
+        if user is not None:
+            flash('That username already exists. Please use a different one.', 'danger')
+            return redirect(url_for('register'))
         user = User(username=form.username.data, email=form.email.data,
                     password=generate_password_hash(form.password.data),
                     profile_picture='default.jpg', cart=[]).save()
