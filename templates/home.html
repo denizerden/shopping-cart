@@ -2,19 +2,24 @@
 {% block content %}
 
 <div class="container">
-    <h1>Home</h1>
-    {% for product in products %}
-        <article>
-          <div>
-            <div>
-              <a class="mr-2" href="{{ url_for('product', id=product.id) }}">${{ product.price }}</a>
-              <img src="{{ url_for('static', filename='img/' + product.image_file) }}" alt="{{ product.id }}" style="max-height: 5rem; width:auto;">
-            </div>
-            <h2><a class="article-title" href="{{ url_for('product', id=product.id) }}">{{ product.title }}</a></h2>
-            <p class="article-content">{{ product.description }}</p>
-          </div>
-        </article>
-    {% endfor %}
-  
+  {% for product in products %}
+  <article class="content-section container-fluid">
+    <a href="{{ url_for('product', id=product.id) }}">
+    <div class="row">
+      <div class="col-12 col-md-3 p-0">
+        <img src="{{ url_for('static', filename='img/' + product.image_file) }}" alt="{{ product.id }}">
+      </div>
+      <div class="col-12 col-md-9 text-center py-3">
+        <h2>{{ product.title }}</h2>
+        <p class="article-content">{{ product.description }}</p>
+      </div>
+      <div class="col text-right">
+        <p>${{ product.price }}</p>
+      </div>
+    </div>
+    </a>
+  </article>
+  {% endfor %}
+
 </div>
 {% endblock content %}

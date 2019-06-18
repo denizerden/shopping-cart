@@ -3,7 +3,7 @@ let cart = {};
 function getQueryVariable(variable) {
     let query = window.location.search.substring(1);
     let vars = query.split("&");
-    for (let i=0;i<vars.length;i++) {
+    for (let i = 0; i < vars.length; i++) {
         let pair = vars[i].split("=");
         if (pair[0] == variable) {
             return pair[1];
@@ -11,10 +11,20 @@ function getQueryVariable(variable) {
     }
 }
 
-$("#addToCartBtn").click(function() {
-    let product_id = getQueryVariable('id');
-    let count = parseInt($('#counter').val());
-    addItem(new Item(product_id, count));
+$(document).ready(() => {
+    $("#addToCartBtn").click(function() {
+        let product_id = getQueryVariable('id');
+        let count = parseInt($('#counter').val());
+        addItem(new Item(product_id, count));
+    });
+
+    $('#minusButton').click(function() {
+        $('#counter').val(parseInt($('#counter').val()) - 1);
+    })
+
+    $('#plusButton').click(function() {
+        $('#counter').val(parseInt($('#counter').val()) + 1);
+    })
 });
 
 
@@ -36,7 +46,7 @@ function saveCart() {
             console.log(result);
         },
         error: result => {
-            
+            // TODO
         }
     });
 }
@@ -73,9 +83,3 @@ function removeItem(item) {
     }
     saveCart();
 }
-
-$('.btn-minuse').on('click', function(){            $(this).parent().siblings('input').val(parseInt($(this).parent().siblings('input').val()) - 1)
-})
-
-$('.btn-pluss').on('click', function(){            $(this).parent().siblings('input').val(parseInt($(this).parent().siblings('input').val()) + 1)
-})

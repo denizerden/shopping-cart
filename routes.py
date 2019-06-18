@@ -11,6 +11,7 @@ import os
 
 @app.route('/')
 @app.route('/home')
+@login_required
 def home():
     return render_template('home.html', products=reversed(Product.objects()))
 
