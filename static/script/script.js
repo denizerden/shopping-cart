@@ -27,11 +27,16 @@ class Item {
 
 function saveCart() {
     sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
-    $.post('/saveCart', JSON.stringify(cart), result => {
-        if (result === 'success') {
-            console.log('Cart updated');
-        } else {
-            console.log('An error occured while updating the cart');
+    $.ajax({
+        type: 'POST',
+        url: '/saveCart',
+        data: JSON.stringify(cart),
+        contentType: 'application/json',
+        success: result => {
+            console.log(result);
+        },
+        error: result => {
+            
         }
     });
 }

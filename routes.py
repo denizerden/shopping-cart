@@ -9,10 +9,15 @@ import json
 import os
 
 
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/home', methods=['GET', 'POST'])
-@login_required
+@app.route('/')
+@app.route('/home')
 def home():
+    return render_template('home.html', products=reversed(Product.objects()))
+
+
+@app.route('/newproduct', methods=['GET', 'POST'])
+@login_required
+def new_product():
     form = ProductForm()
     if form.validate_on_submit():
         product = Product(title=form.title.data,
@@ -23,7 +28,7 @@ def home():
         print(product.id)
         flash(f'Product added', 'success')
         return redirect(url_for('product', id=product.id))
-    return render_template('home.html', form=form)
+    return render_template('newproduct.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -93,10 +98,11 @@ def product():
 
 
 @app.route('/saveCart', methods=['GET', 'POST'])
+@login_required
 def save_cart():
     if request.method == 'POST' and current_user.is_authenticated:
-        json_data = request.get_json(force=True)
-        current_user.cart = [CartItem(product_id=key, quantity=value) for
+        json_data = request.get_json()
+        current_user.cart = [CartItem(product=key, quantity=value) for
                              key, value in json_data.items()]
         current_user.save()
     return 'success'
@@ -117,7 +123,10 @@ def dated_url_for(endpoint, **values):
     if endpoint == 'static':
         filename = values.get('filename', None)
         if filename:
-            file_path = os.path.join(app.root_path,
-                                     endpoint, filename)
-            values['q'] = int(os.stat(file_path).st_mtime)
+            try:
+                file_path = os.path.join(app.root_path,
+                                        endpoint, filename)
+                values['q'] = int(os.stat(file_path).st_mtime)
+            except:
+                pass
     return url_for(endpoint, **values)
