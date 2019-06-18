@@ -55,6 +55,7 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             next_page = request.args.get('next')
+            flash(f'Welcome, {user.username}', 'success')
             return redirect(next_page or url_for('home'))
         else:
             flash('Login failed. Please check email and password', 'danger')
@@ -64,6 +65,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash('You have been succesfully logged out', 'info')
     return redirect(url_for('home'))
 
 
