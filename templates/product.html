@@ -21,12 +21,12 @@
         <img alt="{{ product.id }}" src="{{ url_for('static', filename='img/' + product.image_file) }}"
             class="floating-menu-img">
     </div>
-    <div class="col-9 col-md-5 col-lg-7 my-auto p-0">
+    <div class="col-9 col-md-5 col-lg-6 my-auto p-0">
         <div class="shop-item-details">
             <span class="shop-item-price">${{product.price}}</span>
         </div>
     </div>
-    <div class="col-6 col-md-2 col-lg-1 my-auto p-md-0">
+    <div class="col-6 col-md-2 col-lg-2 my-auto p-md-0">
         <span class="input-group">
             <div class="input-group-btn">
                 <button class="btn" type="button" id="minusButton">-</button>
@@ -38,6 +38,7 @@
             </div>
         </span>
     </div>
+
     <div class="col-6 col-md-3 col-lg-2 my-auto p-0  pr-md-3">
         <button class="btn btn-block btn-primary add-to-cart p-3 mr-0" type="button" id="addToCartBtn">Add to cart</button>
     </div>

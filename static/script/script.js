@@ -83,3 +83,19 @@ function removeItem(item) {
     }
     saveCart();
 }
+
+function addToCart(item, count) {
+
+    let mongo = require('mongodb').MongoClient;
+    let url = 'mongodb://localhost/...';
+    
+    MongoClient.connect(url,function (err,db) {
+
+        db.collection('...').insertOne({
+
+
+        })
+    });
+
+
+}
