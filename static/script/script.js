@@ -118,3 +118,9 @@ function getCookie(item) {
     });
 
 })();
+
+
+$("#cart").on("click",function () {
+   console.log("clicked");
+});
+

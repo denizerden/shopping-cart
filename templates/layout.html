@@ -11,7 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">{% if title %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700">{% if title %}
     <title>Cart | {{title}} </title>
     {% else %}
     <title>Cart</title>
@@ -34,7 +35,7 @@
                         {% if current_user.is_authenticated %}
                         <a class="nav-item nav-link" href="/newproduct">+ New product</a>
                         <a class="nav-item nav-link" href="/logout">Logout</a>
-                        <a class="nav-item nav-link" id="cart"><i class="fa fa-shopping-cart fa_custom"></i></a>{% else %}
+                        <a class="nav-item nav-link" href="#" id="cart"><i class="fa fa-shopping-cart fa_custom"></i></a>{% else %}
                         <a class="nav-item nav-link" href="/login">Login</a>
                         <a class="nav-item nav-link" href="/register">Register</a> {% endif %}
                     </a>
@@ -45,39 +46,41 @@
         <div class="container">
             <div class="shopping-cart">
                 <div class="shopping-cart-header">
-                    <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
+                    <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">16</span>
                     <div class="shopping-cart-total">
                         <span class="lighter-text">Total:</span>
-                        <span class="main-color-text">$2,229.97</span>
+                        <span class="main-color-text total">$461.15</span>
                     </div>
                 </div> <!--end shopping-cart-header -->
 
                 <ul class="shopping-cart-items">
                     <li class="clearfix">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
-                        <span class="item-name">Sony DSC-RX100M III</span>
-                        <span class="item-price">$849.99</span>
+                        <img src="https://www.qispackaging.com.au/getmetafile/fefe4afb-dd4d-495e-ad59-209f29b47052/XMREDTREE.aspx" alt="item1" />
+                        <span class="item-name">XMREDTREE</span>
+                        <span class="item-detail">Pack 100</span>
+                        <span class="item-price">$49.50</span>
                         <span class="item-quantity">Quantity: 01</span>
                     </li>
 
                     <li class="clearfix">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item2.jpg" alt="item1" />
-                        <span class="item-name">KS Automatic Mechanic...</span>
-                        <span class="item-price">$1,249.99</span>
-                        <span class="item-quantity">Quantity: 01</span>
+                        <img src="https://www.qispackaging.com.au/getmetafile/306f6d39-792f-4c8c-b101-9c6aef675758/XMWHREIN.aspx" alt="item1" />
+                        <span class="item-name">XMWHREIN</span>
+                        <span class="item-detail">Pack 100</span>
+                        <span class="item-price">$34.06</span>
+                        <span class="item-quantity">Quantity: 10</span>
                     </li>
 
                     <li class="clearfix">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item3.jpg" alt="item1" />
-                        <span class="item-name">Kindle, 6" Glare-Free To...</span>
-                        <span class="item-price">$129.99</span>
-                        <span class="item-quantity">Quantity: 01</span>
+                        <img src="https://www.qispackaging.com.au/getmetafile/b2f41988-a7b4-432c-b9c2-25bcb9afbcc3/XMJBRR.aspx" alt="item1" />
+                        <span class="item-name">XMJBRR</span>
+                        <span class="item-detail">Pack 25</span>
+                        <span class="item-price">$14.21</span>
+                        <span class="item-quantity">Quantity: 5</span>
                     </li>
                 </ul>
 
-                <a href="#" class="button">Checkout</a>
-            </div> <!--end shopping-cart -->
-        </div> <!--end container -->
+                <a href="#" class="button">Checkout <i class="fa fa-chevron-right"></i></a>
+            </div> <!--end shopping-cart --></div>
     </header>
     <main role="main" class="container-fluid px-0 pt-3">
         {% with messages = get_flashed_messages(with_categories=true) %}
