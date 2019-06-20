@@ -16,6 +16,7 @@ $(document).ready(() => {
         let product_id = getQueryVariable('id');
         let count = parseInt($('#counter').val());
         addItem(new Item(product_id, count));
+
     });
 
     $('#minusButton').click(function() {
@@ -25,6 +26,7 @@ $(document).ready(() => {
     $('#plusButton').click(function() {
         $('#counter').val(parseInt($('#counter').val()) + 1);
     })
+
 });
 
 
@@ -36,7 +38,7 @@ class Item {
 }
 
 function saveCart() {
-    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
+   /* sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
     $.ajax({
         type: 'POST',
         url: '/saveCart',
@@ -48,11 +50,14 @@ function saveCart() {
         error: result => {
             // TODO
         }
-    });
+    });*/
+   setCookie(JSON.stringify(cart));
+
 }
 
 function loadCart() {
-    cart = JSON.parse(sessionStorage.getItem('shoppingCart')) || {};
+    //cart = JSON.parse(sessionStorage.getItem('shoppingCart')) || {};
+    cart = JSON.parse(getCookie('cart'));
 }
 
 $(document).ready(function() {
@@ -84,18 +89,32 @@ function removeItem(item) {
     saveCart();
 }
 
-function addToCart(item, count) {
-
-    let mongo = require('mongodb').MongoClient;
-    let url = 'mongodb://localhost/...';
-    
-    MongoClient.connect(url,function (err,db) {
-
-        db.collection('...').insertOne({
+function setCookie(item) {
 
 
-        })
-    });
-
+   document.cookie = "cart = " + item  ;
 
 }
+function getCookie(item) {
+    let name = item + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+(function(){
+
+    $("#cart").on("click", function() {
+        $(".shopping-cart").fadeToggle( "fast");
+    });
+
+})();

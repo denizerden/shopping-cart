@@ -6,8 +6,12 @@
     </div>
 
     <div class="col-sm container p-3">
+
         <div class="col">
             <h1 class="product-name " id="product-name">{{ product.title }}</h1>
+        </div>
+        <div class="col d-md-none">
+            <span class="shop-item-price">${{product.price}}</span>
         </div>
         <div class="col mt-3">
             <span class="text-justify product-details" id="product-details">{{ product.description }}</span>
@@ -17,15 +21,19 @@
 
 {% endblock content %} {% block floating_menu %}
 <div class="floating-menu row p-0">
-    <div class="col-3 col-md-2 my-auto p-0">
+    <div class="col-3 col-md-3 my-auto p-0 d-none d-md-block">
         <img alt="{{ product.id }}" src="{{ url_for('static', filename='img/' + product.image_file) }}"
             class="floating-menu-img">
     </div>
-    <div class="col-9 col-md-5 col-lg-6 my-auto p-0">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-9 col-md-1 col-lg-6 my-auto p-0 d-none d-md-block">
         <div class="shop-item-details">
             <span class="shop-item-price">${{product.price}}</span>
         </div>
     </div>
+
     <div class="col-6 col-md-2 col-lg-2 my-auto p-md-0">
         <span class="input-group">
             <div class="input-group-btn">

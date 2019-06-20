@@ -52,17 +52,6 @@ body {
   padding-bottom: 0%;
 }
 
-@media (max-width:576px) {
-  .floating-menu {
-    position: sticky;
-    bottom: 0%;
-    width: 100%;
-    left: 0px;
-    padding: 0;
-    margin: 0;
-    height: auto;
-  }
-}
 
 .content-section {
   background: #ffffff;
@@ -90,12 +79,38 @@ a.article-title:hover {
   margin-bottom: 4px;
   border-bottom: 1px solid #e3e3e3
 }
+.fa_custom{
+  color: #fafafa;
+}
 
 a {
-    color: #5f788a;
+    color: #fafafa;
 }
 
 a:hover {
   color: #3d505e;
   text-decoration: none;
+}
+
+@media (max-width:576px) {
+  .floating-menu {
+    bottom: 0%;
+    width: 100%;
+    left: 0px;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    position: relative;
+
+  }
+  .col-6 col-md-3 col-lg-2 my-auto p-0  pr-md-3{
+    right: 8px;
+  }
+}
+
+@media (max-width:768px) {
+
+  .col-6 {
+    right: 8px;
+  }
 }
