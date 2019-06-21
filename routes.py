@@ -92,31 +92,46 @@ def logout():
 def product():
     product_id = request.args.get('id')
     product = None
-    try:
-        product = Product.objects.get(id=product_id)
-    except:
-        product = Product(title="Dummy",
-                          description='''Lorem ipsum dolor sit amet consectetur
-                           adipisicing elit. Iusto sint voluptatibus quasi
-                           magni voluptate eveniet minima aliquam natus
-                           consequatur error mollitia aliquid sit repudiandae
-                           quaerat illum quam tenetur, neque totam minus
-                           impedit? Minima asperiores perspiciatis nam
-                           eveniet. Quam iste repellat rem, adipisci eveniet
-                           nihil quas fuga, accusantium vel labore est quis
-                           qui ea quos deleniti magnam? Accusantium, ullam
-                           numquam nesciunt quam dolorum, ut illum repellendus
-                           odio molestias libero repudiandae commodi
-                           voluptatibus cumque harum explicabo possimus animi
-                           delectus assumenda, ab quisquam vel? At adipisci
-                           quidem dolorum laboriosam quasi, laborum iure,
-                           voluptates ullam provident culpa voluptatem quis
-                           quos possimus totam animi debitis deserunt nobis
-                           quae vero, illo amet.''',
-                          price=123,
-                          image_file="ex2.jpg",
-                          created_on=datetime.utcnow())
-    return render_template('product.html', title=product.title, product=product)
+    if request.method == 'POST':
+        request_data = request.get_json()
+        result = []
+        for _id, count in request_data.items():
+            product = Product.objects.get(id=_id)
+            result.append({
+                'id': str(product.id),
+                'title': product.title,
+                'description': product.description,
+                'price': str(product.price),
+                'image_file': product.image_file,
+                'count': count
+            })
+        return json.dumps(result)
+    else:
+        try:
+            product = Product.objects.get(id=product_id)
+        except:
+            product = Product(title="Dummy",
+                            description='''Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Iusto sint voluptatibus quasi
+                            magni voluptate eveniet minima aliquam natus
+                            consequatur error mollitia aliquid sit repudiandae
+                            quaerat illum quam tenetur, neque totam minus
+                            impedit? Minima asperiores perspiciatis nam
+                            eveniet. Quam iste repellat rem, adipisci eveniet
+                            nihil quas fuga, accusantium vel labore est quis
+                            qui ea quos deleniti magnam? Accusantium, ullam
+                            numquam nesciunt quam dolorum, ut illum repellendus
+                            odio molestias libero repudiandae commodi
+                            voluptatibus cumque harum explicabo possimus animi
+                            delectus assumenda, ab quisquam vel? At adipisci
+                            quidem dolorum laboriosam quasi, laborum iure,
+                            voluptates ullam provident culpa voluptatem quis
+                            quos possimus totam animi debitis deserunt nobis
+                            quae vero, illo amet.''',
+                            price=123,
+                            image_file="ex2.jpg",
+                            created_on=datetime.utcnow())
+        return render_template('product.html', title=product.title, product=product)
 
 
 @app.route('/saveCart', methods=['GET', 'POST'])
