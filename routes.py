@@ -102,7 +102,7 @@ def product():
                 'title': product.title,
                 'description': product.description,
                 'price': str(product.price),
-                'image_file': url_for('static', filename=product.image_file),
+                'image_file': url_for('static', filename='img/' + product.image_file),
                 'count': count
             })
         return json.dumps(result)
