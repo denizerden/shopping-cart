@@ -62,7 +62,21 @@ function loadCart() {
 
 $(document).ready(function() {
     loadCart();
-})
+    let url = document.URL;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: JSON.stringify(cart),
+        contentType: 'application/json',
+        success: result => {
+            console.log(result);
+        },
+        error: result => {
+            // TODO
+        }
+    });
+
+});
 
 function addItem(item) {
     if (cart[item.id]) {
@@ -118,5 +132,7 @@ function getCookie(item) {
     });
 
 })();
+
+
 
 
