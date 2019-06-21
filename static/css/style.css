@@ -116,84 +116,56 @@ a:hover {
 }
 
 .shopping-cart {
+    margin: 20px 0;
+    float: right;
     background: white;
     width: 320px;
-    position: absolute;
-    top: 30px;
-    right: -10px;
+    position: relative;
     border-radius: 3px;
     padding: 20px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26) !important;
-    -webkit-transition: all .2s ease;
-    transition: all .2s ease;
-    opacity: 0;
-    -webkit-transform-origin: right top 0;
-    -webkit-transform: scale(0);
-    transform-origin: right top 0;
-    transform: scale(0);
-}
-.shopping-cart .active {
-    opacity: 1;
-    -webkit-transform-origin: right top 0;
-    -webkit-transform: scale(1);
-    transform-origin: right top 0;
-    transform: scale(1);
+    display: none;
+
+
 }
 
-.shopping-cart .shopping-cart-header{
+.shopping-cart > .shopping-cart-header{
     border-bottom: 1px solid #E8E8E8;
     padding-bottom: 15px;
 }
 
-.shopping-cart .shopping-cart-header .shopping-cart-total{
+.shopping-cart >.shopping-cart-total{
     float: right;
 }
 
-
-
-.shopping-cart-items {
-
+.shopping-cart-items{
     padding-top: 20px;
 }
-.shopping-cart-items li{
+
+.shopping-cart-items > li{
     margin-bottom: 18px;
+    list-style-type: none;
 }
 
-.shopping-cart-items img{
+.shopping-cart-items > img {
     float: left;
     margin-right: 12px;
-    max-width: 70px;
-    max-height: 70px;
 }
 
-
-.item-name {
+.shopping-cart-items > .item-name{
     display: block;
+    padding-top: 10px;
     font-size: 16px;
 }
-.item-detail {
-    display: block;
-    font-size: 12px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-
-.item-price {
-    color: #fafafa;
+.shopping-cart-items > .item-price{
+    color: #6394F8;
     margin-right: 8px;
 }
 
-.item-quantity {
-    color: #fafafa;
+.shopping-cart-items > .item-quantity{
+    color: #ABB0BE;
 }
 
-
-
-
-.shopping-cart:after {
+.shopping-cart:after{
     bottom: 100%;
     left: 89%;
     border: solid transparent;
@@ -214,29 +186,35 @@ a:hover {
     float: left;
 }
 
-.button {
-    background: #fafafa;
-    color:white;
+.button{
+
+
     text-align: center;
     padding: 12px;
     text-decoration: none;
     display: block;
     border-radius: 3px;
     font-size: 16px;
+
     margin: 25px 0 15px 0;
-    text-transform: uppercase;
-
 
 }
-i {
-    padding-left: 5px;
+
+button:hover{
+
 }
-.fa_custom:hover{
-    color:#3d505e ;
-}
-.clearfix:after {
+
+.clearfix:after{
     content: "";
     display: table;
     clear: both;
 }
+.clearfix > img {
+    width: 20%;
+    height: auto;
+    overflow: auto;
+}
 
+.clearfix > .item-name {
+    margin-left: 15px;
+}
