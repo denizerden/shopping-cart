@@ -48,6 +48,10 @@ body {
 
 }
 
+ul {
+  list-style: none;
+}
+
 .add-to-cart {
   float: right;
   margin-right: 5%;
