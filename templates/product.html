@@ -21,19 +21,25 @@
 
 {% endblock content %} {% block floating_menu %}
 <div class="floating-menu row p-0">
-    <div class="col-3 col-md-3 my-auto p-0 d-none d-md-block col-lg-1">
+    <div class="col-3 col-md-2 my-auto p-0 d-none d-md-block col-lg-1">
         <img alt="{{ product.id }}" src="{{ url_for('static', filename='img/' + product.image_file) }}"
             class="floating-menu-img">
-    </div>
-    <div class="col-md-3 col-lg-1">
 
     </div>
-    <div class="col-9 col-md-1 col-lg-6 my-auto p-0 d-none d-md-block">
+    <div class="col-md-2 col-lg-1 d-none d-md-block" id="product-title">
+        <span class="shop-item-title">{{product.title}}</span>
+
+    </div>
+    <div class="col-9 col-md-1 col-lg-1 my-auto p-0 d-none d-md-block">
         <div class="shop-item-details">
             <span class="shop-item-price">${{product.price}}</span>
         </div>
     </div>
-
+    <div class="col-md-2 col-lg-5 d-none d-md-block my-auto" >
+        <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+        </button>
+    </div>
     <div class="col-6 col-md-2 col-lg-2 my-auto p-md-0">
         <span class="input-group">
             <div class="input-group-btn">

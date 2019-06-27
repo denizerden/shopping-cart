@@ -48,32 +48,13 @@
                 <div class="shopping-cart-header">
 
                     <div class="shopping-cart-total">
-                        <span class="lighter-text">Total:</span>
-                        <span class="main-color-text total">$461.15</span>
+                        <span >Total:</span>
+                        <span class="total" id="total"> </span>
                     </div>
                 </div> <!--end shopping-cart-header -->
 
-                <ul class="shopping-cart-items">
-                    <li class="clearfix">
-                        <img src="https://www.qispackaging.com.au/getmetafile/fefe4afb-dd4d-495e-ad59-209f29b47052/XMREDTREE.aspx" alt="item1" />
-                        <span class="item-name">XMREDTREE</span>
-                        <span class="item-price">$49.50</span>
-                        <span class="item-quantity">Quantity: 01</span>
-                    </li>
+                <ul class="shopping-cart-items" id="items">
 
-                    <li class="clearfix">
-                        <img src="https://www.qispackaging.com.au/getmetafile/306f6d39-792f-4c8c-b101-9c6aef675758/XMWHREIN.aspx" alt="item1" />
-                        <span class="item-name">XMWHREIN</span>
-                        <span class="item-price">$34.06</span>
-                        <span class="item-quantity">Quantity: 10</span>
-                    </li>
-
-                    <li class="clearfix">
-                        <img src="https://www.qispackaging.com.au/getmetafile/b2f41988-a7b4-432c-b9c2-25bcb9afbcc3/XMJBRR.aspx" alt="item1" />
-                        <span class="item-name">XMJBRR</span>
-                        <span class="item-price">$14.21</span>
-                        <span class="item-quantity">Quantity: 5</span>
-                    </li>
                 </ul>
 
                 <a href="#" class="btn btn-block btn-primary button">Checkout <i class="fa fa-chevron-right"></i></a>
@@ -101,7 +82,17 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='script/script.js') }}"></script>
+    <script>
+        var csrf_token = "{{ csrf_token() }}";
 
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -16,11 +16,8 @@ body {
   background-color: #5f788a;
 }
 
-.site-header .navbar-nav .nav-link {
-  color: #cbd5db;
-}
 
-.site-header .navbar-nav .nav-link:hover {
+.site-header .navbar-nav .nav-link {
   color: #ffffff;
 }
 
@@ -44,6 +41,11 @@ body {
 .floating-menu img {
   width: auto;
   height: 7rem;
+}
+.shop-item-title{
+    text-align: center;
+    font-weight: bold;
+
 }
 
 .add-to-cart {
@@ -82,14 +84,20 @@ a.article-title:hover {
 .fa_custom{
   color: #fafafa;
 }
-
+.fa_custom:hover{
+    color: #3d505e;
+}
 a {
-    color: #fafafa;
+    color: #3d505e;
 }
 
 a:hover {
   color: #3d505e;
   text-decoration: none;
+}
+
+.nav-item {
+    color: #fafafa;
 }
 
 @media (max-width:576px) {
@@ -108,22 +116,39 @@ a:hover {
   }
 }
 
+#product-title{
+    height: 50%;
+    top: 39%;
+}
 @media (max-width:768px) {
 
   .col-6 {
     right: 8px;
   }
+
+
 }
+@media (max-width:424px) {
+
+
+    .shop-item-title{
+        margin-left: 8%;
+    }
+}
+
+
 
 .shopping-cart {
     margin: 20px 0;
     float: right;
     background: white;
     width: 320px;
-    position: relative;
+    position: fixed;
+    z-index: 100;
     border-radius: 3px;
     padding: 20px;
     display: none;
+    right: 5%;
 
 
 }
@@ -200,9 +225,7 @@ a:hover {
 
 }
 
-button:hover{
 
-}
 
 .clearfix:after{
     content: "";
@@ -216,5 +239,8 @@ button:hover{
 }
 
 .clearfix > .item-name {
-    margin-left: 15px;
+
+    font-weight: bold;
 }
+
+

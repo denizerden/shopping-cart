@@ -9,8 +9,8 @@ import json
 import os
 
 
-@app.route('/')
-@app.route('/home')
+@app.route('/', methods=["POST", "GET"])
+@app.route('/home', methods=["POST", "GET"])
 @login_required
 def home():
     return render_template('home.html', products=reversed(Product.objects()))
