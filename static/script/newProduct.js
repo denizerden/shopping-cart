@@ -34,22 +34,30 @@ $(document).ready(function() {
     }
 
     $("#check-color").change(function () {
-      let i=1;
+      let i;
       if (this.checked == true) {
+        i=0;
         $("#add-new-color").removeClass("d-none");
-        $("#color-selection").prepend('<div class="row"><input type=\'text\' id="custom" /> <input type=\'text\' id="color-name" placeholder="Color Name" /><input type=\'number\' id="color-price" placeholder="Price" step="0.1" /> </div> ');
+        $("#color-selection").prepend('<div class="mt-1" ><input type=\'text\' id="custom" /> <input class="form-control" type=\'text\' id="color-name" placeholder="Color Name" /><input class="form-control" type=\'number\' id="color-price" placeholder="Price" step="0.1" /> </div> ');
         $("#custom").spectrum({
-          color: "#f00"
+          color: "#f00",
+          replacerClassName:'form-control'
         });
         $("#add-new-color").click(function (event) {
           event.preventDefault();
           i++;
-          $("#color-selection").prepend(`<div class="row"> <input type=\'text\' id="custom-${i}" /> <input type=\'text\' id="color-name" placeholder="Color Name" /><input type=\'number\' id="color-price" placeholder="Price" step="0.1" /> </div>`);
+          $("#color-selection").prepend(`<div class="mt-1"> <input type=\'text\' id="custom-${i}" /> <input class="form-control" type=\'text\' id="color-name" placeholder="Color Name" /><input class="form-control" type=\'number\' id="color-price" placeholder="Price" step="0.1" /> </div>`);
           $(`#custom-${i}`).spectrum({
-            color: "#f00"
+            color: "#f00",
+            replacerClassName:'form-control'
           });
 
         });
+      }
+      else{
+        $("#color-selection").html('');
+        i=0;
+        $("#add-new-color").addClass("d-none");
       }
     });
     $("#check-size").change(function () {

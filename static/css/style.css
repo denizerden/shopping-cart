@@ -249,4 +249,6 @@ a:hover {
 
 .sp-replacer{
     padding: 7px;
+    border: solid 1px #ced4da;
+    color: #ced4da;
 }
