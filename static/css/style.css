@@ -252,3 +252,7 @@ a:hover {
     border: solid 1px #ced4da;
     color: #ced4da;
 }
+
+.form-group{
+    margin-bottom: 2px;
+}

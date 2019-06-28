@@ -36,6 +36,8 @@ $(document).ready(function() {
         $("#check-color").change(function () {
 
           if (this.checked == true) {
+            $("#product_price").addClass("d-none");
+            $("#product_price_label").addClass("d-none");
             i=0;
             $("#add-new-color").removeClass("d-none");
             /*$("#color-selection").prepend(`<div id="color-selection-${i}" class="mt-1" ><input type=\'text\' id="custom" /> <input class="form-control" type=\'text\' id="color-name" placeholder="Color Name" /><input class="form-control" type=\'number\' id="color-price" placeholder="Price" step="0.1" /> </div> `);
@@ -47,6 +49,10 @@ $(document).ready(function() {
           }
           else{
             //$("#color-selection").html('');
+            if ($("#check-color").checked == false) {
+              $("#product_price").removeClass("d-none");
+              $("#product_price_label").removeClass("d-none");
+            }
               $(`.color-select`).remove();
             i=0;
             $("#add-new-color").addClass("d-none");
@@ -64,9 +70,27 @@ $(document).ready(function() {
         });
         $("#check-size").change(function () {
           if (this.checked == true) {
-            alert("checked")
+            $("#product_price").addClass("d-none");
+            $("#product_price_label").addClass("d-none");
+            $("#size-selection").append("<select class=\"form-control dropdown-info btn-sm\" id='size-options'>\n"  +
+                "  <option selected>Open this select menu</option>\n" +
+                "  <option value=\"number\">Number</option>\n" +
+                "  <option value=\"2\">Two</option>\n" +
+                "  <option value=\"3\">Three</option>\n" +
+                "</select>")
           } else {
-            console.log($("#custom").spectrum("get"));
+            if ($("#check-color").checked == false) {
+              $("#product_price").removeClass("d-none");
+              $("#product_price_label").removeClass("d-none");
+            }
+           $("#size-options").remove();
+          }
+        });
+
+        $("#size-options").change(function () {
+          let selectedItem = $(this).val();
+          if(selectedItem === 'number'){
+            $("#size-options").append("<div class=\"form-control form-control-lg is-invalid \", id=\"product-size-number\")");
           }
         });
 
