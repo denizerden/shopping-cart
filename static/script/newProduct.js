@@ -34,12 +34,22 @@ $(document).ready(function() {
     }
 
     $("#check-color").change(function () {
+      let i=1;
       if (this.checked == true) {
-        $("#color-selection").html('<input type=\'text\' id="custom" /> <input type=\'text\' id="color-name" placeholder="Color Name" /><input type=\'number\' id="color-price" placeholder="Price" step="0.1" /> <button>+</button>');
+        $("#add-new-color").removeClass("d-none");
+        $("#color-selection").prepend('<div class="row"><input type=\'text\' id="custom" /> <input type=\'text\' id="color-name" placeholder="Color Name" /><input type=\'number\' id="color-price" placeholder="Price" step="0.1" /> </div> ');
         $("#custom").spectrum({
           color: "#f00"
         });
-        $
+        $("#add-new-color").click(function (event) {
+          event.preventDefault();
+          i++;
+          $("#color-selection").prepend(`<div class="row"> <input type=\'text\' id="custom-${i}" /> <input type=\'text\' id="color-name" placeholder="Color Name" /><input type=\'number\' id="color-price" placeholder="Price" step="0.1" /> </div>`);
+          $(`#custom-${i}`).spectrum({
+            color: "#f00"
+          });
+
+        });
       }
     });
     $("#check-size").change(function () {
@@ -49,6 +59,7 @@ $(document).ready(function() {
         console.log($("#custom").spectrum("get"));
       }
     });
+
   });
 
 
