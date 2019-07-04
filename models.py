@@ -7,12 +7,11 @@ from mongoengine.fields import (
 
 
 class Product(Document):
-    # _id = ObjectIdField(required=True)
     title = StringField(required=True)
     description = StringField(required=True)
     price = DecimalField(required=True, force_string=True)
     image_file = StringField()
-    created_on = DateTimeField(required=True)
+    created_on = DateTimeField(auto_now_add=True)
 
 
 class CartItem(EmbeddedDocument):

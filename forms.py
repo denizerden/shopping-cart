@@ -1,24 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import (DecimalField, IntegerField, PasswordField, StringField,
-                     SubmitField, TextAreaField, SelectField, SelectMultipleField)
+from wtforms import (DecimalField, IntegerField, PasswordField, SelectField,
+                     SelectMultipleField, StringField, SubmitField,
+                     TextAreaField)
 from wtforms.validators import DataRequired, Email, EqualTo, Length
-from wtforms.widgets import ListWidget, CheckboxInput
-
-class MultiCheckboxField(SelectMultipleField):
-    widget = ListWidget(prefix_label=False)
-    option_widget = CheckboxInput()
-
-
-class ProductForm(FlaskForm):
-    title = StringField('Title',
-                        validators=[DataRequired(), Length(min=2, max=100)])
-    description = TextAreaField('Description',
-                                validators=[DataRequired(), Length(max=1000)])
-    price = DecimalField('Price', validators=[DataRequired()])
-    image_file = StringField('Image file', default='default.jpg')
-    product_type = SelectField('Product type', validators=[DataRequired()], choices=[])
-    properties = MultiCheckboxField('Properties', validators=[DataRequired()], choices=[])
-    submit = SubmitField('Save')
+from wtforms.widgets import CheckboxInput, ListWidget
 
 
 class RegisterForm(FlaskForm):

@@ -1,7 +1,7 @@
 from __init__ import app
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, Response, jsonify
 from flask_login import login_user, current_user, logout_user, login_required
-from forms import ProductForm, LoginForm, RegisterForm
+from forms import LoginForm, RegisterForm
 from models import Product, User, CartItem
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -17,19 +17,12 @@ def home():
 
 
 @app.route('/newproduct', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def new_product():
-    form = ProductForm()
-    if form.validate_on_submit():
-        product = Product(title=form.title.data,
-                          description=form.description.data,
-                          price=form.price.data,
-                          image_file=form.image_file.data,
-                          created_on=datetime.utcnow()).save()
-        print(product.id)
-        flash(f'Product added', 'success')
-        return redirect(url_for('product', id=product.id))
-    return render_template('newproduct.html', form=form)
+    if request.method == 'GET':
+        return render_template('newproduct.html')
+    else:
+        return jsonify({'hello': 'world'})
 
 
 @app.route('/register', methods=['GET', 'POST'])
