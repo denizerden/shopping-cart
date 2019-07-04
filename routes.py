@@ -1,12 +1,15 @@
-from __init__ import app
-from flask import render_template, flash, redirect, url_for, request, Response, jsonify
-from flask_login import login_user, current_user, logout_user, login_required
-from forms import LoginForm, RegisterForm
-from models import Product, User, CartItem
-from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import os
+from datetime import datetime
+
+from flask import (Response, flash, jsonify, redirect, render_template,
+                   request, url_for)
+from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from __init__ import app
+from forms import LoginForm, RegisterForm
+from models import CartItem, Product, User
 
 
 @app.route('/', methods=["POST", "GET"])

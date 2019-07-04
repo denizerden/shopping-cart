@@ -1,10 +1,10 @@
 from flask import Flask
+from flask_login import LoginManager
 from flask_pymongo import PyMongo
 from mongoengine import connect
-from flask_login import LoginManager
-from models import User
-from flask_wtf.csrf import CSRFProtect
 
+import routes
+from models import User
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd67aee21ea3581a60ed7b2cf43f384a983b2e23ac1cee232'
@@ -18,5 +18,3 @@ login_manager.login_message_category = 'info'
 @login_manager.user_loader
 def load_user(user_id):
     return User.objects.get(id=user_id)
-
-import routes
