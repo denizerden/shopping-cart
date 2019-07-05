@@ -1,15 +1,16 @@
 import json
 import os
 from datetime import datetime
+import traceback
 
-from flask import (Response, flash, jsonify, redirect, render_template,
-                   request, url_for)
+from flask import (Response, flash, jsonify, make_response, redirect,
+                   render_template, request, url_for)
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from __init__ import app
 from forms import LoginForm, RegisterForm
-from models import CartItem, Product, User
+from models import CartItem, Product, User, Price, Option
 
 
 @app.route('/', methods=["POST", "GET"])
@@ -25,6 +26,38 @@ def new_product():
     if request.method == 'GET':
         return render_template('newproduct.html')
     else:
+        try:
+            data = request.get_json()
+            prices = []
+            for price in data['prices']:
+                options = []
+                for option_id in price['options']:
+                    current_option = data['options'][option_id]
+                    options.append(Option(
+                        option_id=option_id,
+                        option_type=current_option['type'],
+                        option_text=current_option['text'],
+                        option_value=current_option['value']
+                    ).save())
+                current = Price(
+                    
+                    valid_from=datetime.utcnow(),
+                    valid_to=datetime.utcnow(),
+                    currency=price['currency'],
+                    original_price=price['originalPrice'],
+                    discounted_price=price['discountedPrice'],
+                    discount_rate=price['discountRate'],
+                    stock=price['stock'],
+                    is_active=price['isActive'],
+                    options=options
+                ).save()
+                prices.append(current)
+            print(prices)
+            return jsonify({'success': True})
+
+        except Exception as e:
+            traceback.print_exc()
+            return make_response('Invalid product data', 400)
         return jsonify({'hello': 'world'})
 
 
