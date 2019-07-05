@@ -28,9 +28,9 @@ class Price(Document):
 class Product(Document):
     title = StringField(required=True)
     description = StringField(required=True)
-    price = DecimalField(required=True, force_string=True)
-    image_file = StringField()
+    image_url = StringField()
     created_on = DateTimeField(auto_now_add=True)
+    prices = ListField(LazyReferenceField(Price))
 
 
 class CartItem(EmbeddedDocument):

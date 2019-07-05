@@ -40,7 +40,6 @@ def new_product():
                         option_value=current_option['value']
                     ).save())
                 current = Price(
-                    
                     valid_from=datetime.utcnow(),
                     valid_to=datetime.utcnow(),
                     currency=price['currency'],
@@ -52,12 +51,16 @@ def new_product():
                     options=options
                 ).save()
                 prices.append(current)
-            print(prices)
-            return jsonify({'success': True})
-
+            product = Product(
+                title=data['title'],
+                description=data['description'],
+                image_url=data['imageURL'],
+                prices=prices
+            ).save()
+            return jsonify({'created': str(product.id), 'success': True})
         except Exception as e:
             traceback.print_exc()
-            return make_response('Invalid product data', 400)
+            return make_response('An error occured while adding product.', 400)
         return jsonify({'hello': 'world'})
 
 
@@ -139,27 +142,7 @@ def product():
         try:
             product = Product.objects.get(id=product_id)
         except:
-            product = Product(title="Dummy",
-                            description='''Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Iusto sint voluptatibus quasi
-                            magni voluptate eveniet minima aliquam natus
-                            consequatur error mollitia aliquid sit repudiandae
-                            quaerat illum quam tenetur, neque totam minus
-                            impedit? Minima asperiores perspiciatis nam
-                            eveniet. Quam iste repellat rem, adipisci eveniet
-                            nihil quas fuga, accusantium vel labore est quis
-                            qui ea quos deleniti magnam? Accusantium, ullam
-                            numquam nesciunt quam dolorum, ut illum repellendus
-                            odio molestias libero repudiandae commodi
-                            voluptatibus cumque harum explicabo possimus animi
-                            delectus assumenda, ab quisquam vel? At adipisci
-                            quidem dolorum laboriosam quasi, laborum iure,
-                            voluptates ullam provident culpa voluptatem quis
-                            quos possimus totam animi debitis deserunt nobis
-                            quae vero, illo amet.''',
-                            price=123,
-                            image_file="ex2.jpg",
-                            created_on=datetime.utcnow())
+            product = None
         return render_template('product.html', title=product.title, product=product)
 
 
@@ -191,7 +174,7 @@ def dated_url_for(endpoint, **values):
         if filename:
             try:
                 file_path = os.path.join(app.root_path,
-                                        endpoint, filename)
+                                         endpoint, filename)
                 values['q'] = int(os.stat(file_path).st_mtime)
             except:
                 pass
