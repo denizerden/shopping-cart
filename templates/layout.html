@@ -14,7 +14,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700">{% if title %}
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700">
+    <link href="{{url_for('static', filename='css/datepicker.min.css') }}" rel="stylesheet" type="text/css">
+    
+    
+    {% if title %}
     <title>Cart | {{title}} </title>
     {% else %}
     <title>Cart</title>
@@ -86,7 +90,10 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='script/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='script/datepicker.min.js') }}"></script>
 
+    <!-- Include English language -->
+    <script src="{{ url_for('static', filename='script/datepicker.en.js') }}"></script>
     <script>
     </script>
     {% block javascript %}{% endblock javascript %}

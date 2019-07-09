@@ -8,7 +8,7 @@ function newForm(id) {
   <tr>
                             <td><select class="form-control" id="form-${id}">
                                 <option>Renk</option>
-                                <option>2</option>     
+                                <option>Diğer</option>     
                             </select></td>
                             <td id="option-details-${id}"><button class="btn btn-primary float-right" type="button" id="add-new-option-${id}">Seçenek Ekle</button></td>
                         </tr>
@@ -24,8 +24,12 @@ function addOption (id) {
     let selectedOption = element.options[element.selectedIndex].value;
   
     if(selectedOption==="Renk"){
+      $(`#other-${id}`).remove();
       console.log("renk seçildi");
-      $(`#option-details-${id}`).append(`<div id="pickr-${id}"><div class="pickr-${id}"> </div></div>`)
+      $(`#option-details-${id}`).append(`<div id="pickr-${id}" class="input-group-sm  d-inline-flex" ><div class="pickr-${id}"> </div>
+
+      <input type="text" class="form-control ml-2" id="color-name-${id}" placeholder="Renk Adı" aria-label="Username" aria-describedby="basic-addon1">
+    </div>`)
       const pickr = Pickr.create({
             el: `.pickr-${id}`,
             
@@ -74,8 +78,12 @@ function addOption (id) {
         });
         
     }
-    else if(selectedOption==="2"){
+    else if(selectedOption==="Diğer"){
       $(`#pickr-${id}`).remove();
+      $(`#option-details-${id}`).append(`<div id="other-${id}" class="input-group-inline  d-inline-flex" >
+
+      <input type="text" class="form-control ml-2" id="other-option-${id}" placeholder="Seçenek" aria-label="Username" aria-describedby="basic-addon1">
+    </div>`)
         }
   });
   $(`#add-new-option-${id}`).click(event => {
@@ -85,7 +93,7 @@ function addOption (id) {
   });
 }
 $(document).ready(function() {
-  addOption(0)
+  addOption(0);
   $("#product-form").submit(function(event) {
     event.preventDefault();
     data = {
