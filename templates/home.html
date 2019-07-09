@@ -7,7 +7,7 @@
     <a href="{{ url_for('product', id=product.id) }}">
     <div class="row">
       <div class="col-12 col-md-3 p-0">
-        <img src="{{ url_for('static', filename='img/' + product.image_url) }}" alt="{{ product.id }}">
+        <img src="{{ product.image_url }}" alt="{{ product.id }}">
       </div>
       <div class="col-12 col-md-9 text-center py-3">
         <h2>{{ product.title }}</h2>

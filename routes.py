@@ -1,15 +1,15 @@
 import json
 import os
 from datetime import datetime
-
+import traceback
 from flask import (Response, flash, jsonify, redirect, render_template,
-                   request, url_for)
+                   request, url_for, make_response)
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from __init__ import app
 from forms import LoginForm, RegisterForm
-from models import CartItem, Product, User
+from models import CartItem, Product, User, Option, Price
 
 
 @app.route('/', methods=["POST", "GET"])
@@ -25,6 +25,41 @@ def new_product():
     if request.method == 'GET':
         return render_template('newproduct.html')
     else:
+        try:
+            data = request.get_json()
+            prices = []
+            for price in data['prices']:
+                options = []
+                for option_id in price['options']:
+                    current_option = data['options'][option_id]
+                    options.append(Option(
+                        option_id=option_id,
+                        option_type=current_option['type'],
+                        option_text=current_option['text'],
+                        option_value=current_option['value']
+                    ).save())
+                current = Price(
+                    valid_from=datetime.utcnow(),
+                    valid_to=datetime.utcnow(),
+                    currency=price['currency'],
+                    original_price=price['originalPrice'],
+                    discounted_price=price['discountedPrice'],
+                    discount_rate=price['discountRate'],
+                    stock=price['stock'],
+                    is_active=price['isActive'],
+                    options=options
+                ).save()
+                prices.append(current)
+            product = Product(
+                title=data['title'],
+                description=data['description'],
+                image_url=data['imageURL'],
+                prices=prices
+            ).save()
+            return jsonify({'created': str(product.id), 'success': True})
+        except Exception as e:
+            traceback.print_exc()
+            return make_response('An error occured while adding product.', 400)
         return jsonify({'hello': 'world'})
 
 
@@ -98,7 +133,7 @@ def product():
                 'title': product.title,
                 'description': product.description,
                 'price': str(product.price),
-                'image_file': url_for('static', filename='img/' + product.image_file),
+                'image_url': product.imageURL,
                 'count': count
             })
         return json.dumps(result)
@@ -107,7 +142,7 @@ def product():
             product = Product.objects.get(id=product_id)
         except:
             product = Product(title="Dummy",
-                            description='''Lorem ipsum dolor sit amet consectetur
+                              description='''Lorem ipsum dolor sit amet consectetur
                             adipisicing elit. Iusto sint voluptatibus quasi
                             magni voluptate eveniet minima aliquam natus
                             consequatur error mollitia aliquid sit repudiandae
@@ -124,9 +159,9 @@ def product():
                             voluptates ullam provident culpa voluptatem quis
                             quos possimus totam animi debitis deserunt nobis
                             quae vero, illo amet.''',
-                            price=123,
-                            image_file="ex2.jpg",
-                            created_on=datetime.utcnow())
+                              price=123,
+                              image_file="ex2.jpg",
+                              created_on=datetime.utcnow())
         return render_template('product.html', title=product.title, product=product)
 
 
@@ -158,7 +193,7 @@ def dated_url_for(endpoint, **values):
         if filename:
             try:
                 file_path = os.path.join(app.root_path,
-                                        endpoint, filename)
+                                         endpoint, filename)
                 values['q'] = int(os.stat(file_path).st_mtime)
             except:
                 pass

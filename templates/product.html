@@ -2,7 +2,7 @@
 
 <div class="row w-100 mx-0" style="margin-top:-1rem;">
     <div class="col-sm p-0 text-center product-image">
-        <img alt="{{ product.id }}" src="{{ url_for('static', filename='img/' + product.image_url) }}">
+        <img alt="{{ product.id }}" src="{{  product.image_url }}">
     </div>
 
     <div class="col-sm container p-3">
@@ -22,7 +22,7 @@
 {% endblock content %} {% block floating_menu %}
 <div class="floating-menu row p-0">
     <div class="col-3 col-md-2 my-auto p-0 d-none d-md-block col-lg-1">
-        <img alt="{{ product.id }}" src="{{ url_for('static', filename='img/' + product.image_url) }}"
+        <img alt="{{ product.id }}" src="{{ product.image_url }}"
             class="floating-menu-img">
 
     </div>
