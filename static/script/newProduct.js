@@ -1,14 +1,12 @@
 
 let colorArray = [];
-let optionCount = 0;
-{/* <div class="form-group mb-2 d-none " id="color-picker-${id}">
-                <div class="pickr"></div>
-  </div>  */}
+let optionCount = 1;
+
 function newForm(id) {
   return `
 
   <tr>
-                            <td><select class="form-control">
+                            <td><select class="form-control" id="form-${id}">
                                 <option>Renk</option>
                                 <option>2</option>     
                             </select></td>
