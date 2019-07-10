@@ -261,10 +261,18 @@ a:hover {
 .pickr{
   display: inline-flex;
 }
-.dot {
-  height: 25px;
-  width: 25px;
- 
-  border-radius: 50%;
-  display: inline-block;
+.round {
+  position: relative;
+}
+.round input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+  background-color: #66bb6a;
+  border-color: #66bb6a;
+}
+
+.round input[type="checkbox"]:checked + label:after {
+  opacity: 1;
 }
