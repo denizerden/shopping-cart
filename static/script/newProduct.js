@@ -34,24 +34,29 @@ function newForm(id) {
 
 function newPrice(id) {
   return `
-        <div class="card-body" id="price-form-${id}">
-          <div class="container">
-            <div class="row mt">
-              <div class="col"><input type="text" id="date-from-${id}" class="datepicker-here form-control" placeholder="Başlangıç Tarihi" data-language="en"></div>
-              <div class="col"><input type="text" id="date-to-${id}" class="datepicker-here form-control" placeholder="Bitiş Tarihi" data-language="en"></div>
-            </div>
-            <div class="row mt-4">
-              <div class="w-100"></div>
-              <div class="col"> <input type="number" id="normal-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="Normal Fiyat" step="0.01"></div>
-              <div class="col"> <input type="number" id="discounted-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="İndirimli Fiyat" step="0.01"></div>
-            </div> 
-            <div class="row mt-4">
-              <div class="w-100"></div>
-              <div class="col"> <input type="number" class="form-control price-calc-${id}" data-changed="false" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
-              <div class="col"><button type="button" id="remove-button-${id}" class="btn btn-outline-danger">Fiyatları Sıfırla</button></div>
-            </div>   
-          </div>
-        </div>
+  <div class="card-body" id="price-form-${id}">
+  <div class="container">
+    <div class="row mt">
+      <div class="col"><input type="text" id="date-from-${id}" class="datepicker-here form-control" placeholder="Başlangıç Tarihi" data-language="en"></div>
+      <div class="col"><input type="text" id="date-to-${id}" class="datepicker-here form-control" placeholder="Bitiş Tarihi" data-language="en"></div>
+    </div>
+    <div class="row mt-4">
+      <div class="w-100"></div>
+      <div class="col"> <input type="number" id="normal-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="Normal Fiyat" step="0.01"></div>
+      <div class="col"> <input type="number" id="discounted-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="İndirimli Fiyat" step="0.01"></div>
+    </div> 
+    <div class="row mt-4">
+      <div class="w-100"></div>
+      <div class="col"> <input type="number" class="form-control price-calc-${id}" data-changed="false" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
+      <div class="col" id="color-options-${id}"></div>
+    </div>  
+    <div class="row mt-4">
+      <div class="w-100"></div>
+      <div class="col"><button type="button" id="remove-button-${id}" class="btn btn-outline-danger">Fiyatları Sıfırla</button></div>
+      <div class="col"></div>
+    </div>   
+  </div>
+</div>
   `;
 }
 
@@ -107,6 +112,7 @@ function addColorSelect(id) {
   pickr.on('save', (color, instance) => {
     colorArray.push(color);
     console.log(colorArray);
+    $(`#color-options-0`).append(`<button class="dot" style="background-color: ${color.toRGBA().toString()};"></button>`);
   });
 }
 
