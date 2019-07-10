@@ -41,6 +41,12 @@ function newPrice(id) {
 function addPrice(id) {
   priceCount++;
   $('#collapseTwo').append(newPrice(id));
+  $(`#date-from-${id}`).datepicker({
+    language: 'en',
+  });
+  $(`#date-to-${id}`).datepicker({
+    language: 'en',
+  });
 }
 
 function addOption(id) {
@@ -171,5 +177,4 @@ $(document).ready(function() {
     console.log(colorArray);
   });
   addPrice(0);
-  
 });
