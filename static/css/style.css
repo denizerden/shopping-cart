@@ -261,3 +261,10 @@ a:hover {
 .pickr{
   display: inline-flex;
 }
+.dot {
+  height: 25px;
+  width: 25px;
+ 
+  border-radius: 50%;
+  display: inline-block;
+}
