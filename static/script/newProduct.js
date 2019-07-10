@@ -13,11 +13,11 @@ function calc(id) {
  
   let dp = $(`#discounted-price-${id}`).val();
   let dr = $(`#discount-rate-${id}`).val() ;
-  if (npChanged && drChanged) {
+  if (npChanged === "true" && drChanged === "true") {
     let y = np - (np * dr / 100);
     $(`#discounted-price-${id}`).val(y);
   }
-  else if (npChanged && dpChanged) {
+  else if (npChanged === "true" && dpChanged === "true") {
     let x = (dp/np) * 100;
     $(`#discount-rate-${id}`).val(x);
   }
