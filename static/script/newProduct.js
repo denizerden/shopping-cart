@@ -87,7 +87,7 @@ function addColorSelect(id) {
       <input type="text" class="form-control ml-2" id="color-name-${id}" placeholder="Renk Adı" aria-label="Username" aria-describedby="basic-addon1">
     </div>`);
   const pickr = Pickr.create({
-    el: `.pickr-0`,
+    el: `.pickr-${id}`,
 
     components: {
       // Main components
@@ -112,7 +112,7 @@ function addColorSelect(id) {
   pickr.on('save', (color, instance) => {
     colorArray.push(color);
     console.log(colorArray);
-    $(`#color-options-0`).append(`<button class="dot" style="background-color: ${color.toRGBA().toString()};"></button>`);
+    $(`#color-options-0`).append(`<input type="checkbox" id="checkbox" class="round" style="background-color: ${color.toRGBA().toString()};"></input>`);
   });
 }
 
