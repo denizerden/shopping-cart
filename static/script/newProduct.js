@@ -1,6 +1,33 @@
 let colorArray = [];
 let optionCount = 0;
 let priceCount = 0;
+let npChange = false;
+let dpChange = false;
+let drChange = false;
+
+function calc(id) {
+  let dpChanged = $(`#discounted-price-${id}`).data("changed");
+  let npChanged = $(`#normal-price-${id}`).data("changed");
+  let drChanged = $(`#discount-rate-${id}`).data("changed");
+  let np = $(`#normal-price-${id}`).val();
+ 
+  let dp = $(`#discounted-price-${id}`).val();
+  let dr = $(`#discount-rate-${id}`).val() ;
+  if (npChanged && drChanged) {
+    let y = np - (np * dr / 100);
+    $(`#discounted-price-${id}`).val(y);
+  }
+  else if (npChanged && dpChanged) {
+    let x = (dp/np) * 100;
+    $(`#discount-rate-${id}`).val(x);
+  }
+  
+   
+  
+  
+
+  
+}
 
 function newForm(id) {
   return `
@@ -25,13 +52,13 @@ function newPrice(id) {
             </div>
             <div class="row mt-4">
               <div class="w-100"></div>
-              <div class="col"> <input type="number" id="normal-price-${id}" class="form-control" placeholder="Normal Fiyat" step="0.01"></div>
-              <div class="col"> <input type="number" id="discounted-price-${id}" class="form-control" placeholder="İndirimli Fiyat" step="0.01"></div>
+              <div class="col"> <input type="number" id="normal-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="Normal Fiyat" step="0.01"></div>
+              <div class="col"> <input type="number" id="discounted-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="İndirimli Fiyat" step="0.01"></div>
             </div> 
             <div class="row mt-4">
               <div class="w-100"></div>
-              <div class="col"> <input type="number" class="form-control" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
-              <div class="col"></div>
+              <div class="col"> <input type="number" class="form-control price-calc-${id}" data-changed="false" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
+              <div class="col"><button type="button" id="remove-button-${id}" class="btn btn-outline-danger">Fiyatları Sıfırla</button></div>
             </div>   
           </div>
         </div>
@@ -46,6 +73,15 @@ function addPrice(id) {
   });
   $(`#date-to-${id}`).datepicker({
     language: 'en',
+  });
+  $(`.price-calc-${id}`).keyup(function(){
+    console.log($(this).data("changed"))
+    $(this).data("changed", "true");
+    calc(id);
+  });
+  $(`#remove-button-${id}`).click(function(){
+    $(`.price-calc-${id}`).data("changed","false");
+    $(`.price-calc-${id}`).val("");
   });
 }
 
@@ -126,6 +162,7 @@ function addOption(id) {
 }
 $(document).ready(function() {
   addOption(0);
+  
   $(
     `#option-details-0`
   ).append(`<div id="pickr-0" class="input-group-sm  d-inline-flex" ><div class="pickr-0"> </div>
