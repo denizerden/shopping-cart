@@ -3,19 +3,26 @@ let optionCount = 0;
 let priceCount = 0;
 
 function calc(id) {
-  let dpChanged = $(`#discounted-price-${id}`).data('changed');
-  let npChanged = $(`#normal-price-${id}`).data('changed');
-  let drChanged = $(`#discount-rate-${id}`).data('changed');
+  let lastTwo = $(`#price-form-${id}`).data('lastTwo');
+  let types = lastTwo.map(el => {
+    return el.id
+      .split('-')
+      .splice(0, 2)
+      .join('-');
+  });
+  console.log(types);
   let np = $(`#normal-price-${id}`).val();
-
   let dp = $(`#discounted-price-${id}`).val();
   let dr = $(`#discount-rate-${id}`).val();
-  if (npChanged === 'true' && drChanged === 'true') {
-    let y = np - (np * dr) / 100;
-    $(`#discounted-price-${id}`).val(y);
-  } else if (npChanged === 'true' && dpChanged === 'true') {
-    let x = ((np - dp) / np) * 100;
-    $(`#discount-rate-${id}`).val(x);
+  if (types.includes('normal-price') && types.includes('discounted-price')) {
+    let discountRate = ((np - dp) / np) * 100;
+    $(`#discount-rate-${id}`).val(discountRate);
+  } else if (
+    types.includes('normal-price') &&
+    types.includes('discount-rate')
+  ) {
+    let discountedPrice = np - (np * dr) / 100;
+    $(`#discounted-price-${id}`).val(discountedPrice);
   }
 }
 
@@ -64,14 +71,33 @@ function addPrice(id) {
   $(`#date-to-${id}`).datepicker({
     language: 'en',
   });
+  $(`#price-form-${id}`).data('lastTwo', []);
+  $(`.price-calc-${id}`).focusin(function() {
+    let lastTwo = $(`#price-form-${id}`).data('lastTwo');
+
+    if (!lastTwo.includes(this)) {
+      lastTwo.push(this);
+      if (lastTwo.length > 2) {
+        let removedElement = lastTwo[0];
+        $(`#${removedElement.id}`).css('background-color', 'white');
+        lastTwo = lastTwo.splice(1);
+      }
+      $(`#price-form-${id}`).data('lastTwo', lastTwo);
+      console.log($(`#price-form-${id}`).data('lastTwo'));
+    }
+    lastTwo.forEach(el => {
+      $(`#${el.id}`).css('background-color', 'lightblue');
+    });
+  });
+
   $(`.price-calc-${id}`).keyup(function() {
-    console.log($(this).data('changed'));
-    $(this).data('changed', 'true');
     calc(id);
   });
+
   $(`#remove-button-${id}`).click(function() {
-    $(`.price-calc-${id}`).data('changed', 'false');
+    $(`.price-calc-${id}`).data('lastTwo', []);
     $(`.price-calc-${id}`).val('');
+    $(`.price-calc-${id}`).css('background-color', 'white');
   });
 }
 
