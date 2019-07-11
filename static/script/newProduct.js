@@ -1,6 +1,7 @@
 let colorArray = [];
 let optionCount = 0;
 let priceCount = 0;
+let productCount= 0;
 
 function calc(id) {
   let lastTwo = $(`#price-form-${id}`).data('lastTwo');
@@ -38,6 +39,32 @@ function newForm(id) {
                         </tr>
 `;
 }
+function newProductForm(id) {
+  return `
+  <div class="card-body" id="new-product-form-${id}">
+  <div class="container">
+  
+    <div class="row mt">
+    <div class="w-100"></div>
+    <div class="col"><input class="form-control" type="text" id="title-${id}"  placeholder="Ürün Adı" data-language="en"></div>
+     
+    </div>
+    <div class="row mt-4">
+    <div class="w-100"></div>
+    <div class="col"><input class="form-control" type="text" id="description-${id}"  placeholder="Ürün Açıklaması" data-language="en"></div>
+   
+  </div>  
+    <div class="row mt-4">
+      <div class="w-100"></div>
+      <div class="col"> <input class="form-control" type="text" id="img-url-${id}"  placeholder="Ürün Fotoğrafı Url" data-language="en"></div>
+  
+    </div> 
+    
+   
+  </div>
+</div> 
+  `;
+}
 
 function newPrice(id) {
   return `
@@ -48,20 +75,27 @@ function newPrice(id) {
       <div class="col"><input type="text" id="date-to-${id}" class="datepicker-here form-control" placeholder="Bitiş Tarihi" data-language="en"></div>
     </div>
     <div class="row mt-4">
+    <div class="w-100"></div>
+    <div class="col"><input type="text" id="date-from-${id}" class=" form-control" placeholder="Currency" data-language="en"></div>
+    <div class="col"> <input type="number" id="normal-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="Normal Fiyat" step="0.01"></div>
+  </div>  
+    <div class="row mt-4">
       <div class="w-100"></div>
-      <div class="col"> <input type="number" id="normal-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="Normal Fiyat" step="0.01"></div>
       <div class="col"> <input type="number" id="discounted-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="İndirimli Fiyat" step="0.01"></div>
+      <div class="col"><input type="number" class="form-control price-calc-${id}" data-changed="false" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
     </div> 
     <div class="row mt-4">
       <div class="w-100"></div>
-      <div class="col"> <input type="number" class="form-control price-calc-${id}" data-changed="false" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
       <div class="col d-flex" id="color-options-${id}"></div>
-    </div>  
+      <div class="col"> </div>
+    </div> 
+   
     <div class="row mt-4">
       <div class="w-100"></div>
       <div class="col"><button type="button" id="remove-button-${id}" class="btn btn-outline-danger">Fiyatları Sıfırla</button></div>
       <div class="col"></div>
-    </div>   
+    </div> 
+      
   </div>
 </div>
   `;
@@ -146,6 +180,15 @@ function addColorSelect(id) {
    `);
   });
 }
+function addNewProduct(id) {
+  productCount++;
+  $('#dynamic-field-2').append(newProductForm(id));
+
+  //console.log(id)
+ 
+    
+ 
+}
 
 function addOption(id) {
   optionCount++;
@@ -176,6 +219,7 @@ function addOption(id) {
   });
 }
 $(document).ready(function() {
+  addNewProduct(0);
   addOption(0);
   addPrice(0);
 });

@@ -1,14 +1,38 @@
 <div class="accordion" id="accordionExample">
     <div class="card">
+        <div class="card-header" id="headingThree">
+          <h2 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+             Yeni Ürün Ekle
+            </button>
+          </h2>
+        </div>
+        
+      <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+          <div class="card-body">
+              <div class="form-group">
+                  <form name="add-product" id="product-form-2" method="POST" action="">
+                      
+                      <table class="table table-bordered" id="dynamic-field-2">
+                     
+                      </table>
+                     
+                     
+                  </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    <div class="card">
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
            Seçenek Ekle
           </button>
         </h2>
       </div>
   
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
             <div class="form-group">
                 <form name="add-option" id="product-form" method="POST" action="">
