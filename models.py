@@ -20,8 +20,8 @@ class Price(Document):
     original_price = DecimalField(min_value=0, precision=2)
     discounted_price = DecimalField(min_value=0, precision=2)
     discount_rate = DecimalField(min_value=0, max_value=1, precision=4)
-    stock = IntField(min_value=0, required=True)
-    is_active = BooleanField(required=True)
+    # stock = IntField(min_value=0, required=True)
+    # is_active = BooleanField(required=True)
     options = ListField(LazyReferenceField(Option))
 
 

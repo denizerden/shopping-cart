@@ -46,17 +46,17 @@ function newProductForm(id) {
   
     <div class="row mt">
     <div class="w-100"></div>
-    <div class="col"><input class="form-control" type="text" id="title-${id}"  placeholder="Ürün Adı" data-language="en"></div>
+    <div class="col"><input name="formTitle" class="form-control" type="text" id="title-${id}"  placeholder="Ürün Adı" data-language="en"></div>
      
     </div>
     <div class="row mt-4">
     <div class="w-100"></div>
-    <div class="col"><input class="form-control" type="text" id="description-${id}"  placeholder="Ürün Açıklaması" data-language="en"></div>
+    <div class="col"><input  name="formDescription"  class="form-control" type="text" id="description-${id}"  placeholder="Ürün Açıklaması" data-language="en"></div>
    
   </div>  
     <div class="row mt-4">
       <div class="w-100"></div>
-      <div class="col"> <input class="form-control" type="text" id="img-url-${id}"  placeholder="Ürün Fotoğrafı Url" data-language="en"></div>
+      <div class="col"> <input  name="formImg"  class="form-control" type="text" id="img-url-${id}"  placeholder="Ürün Fotoğrafı Url" data-language="en"></div>
   
     </div> 
     
@@ -71,18 +71,18 @@ function newPrice(id) {
   <div class="card-body" id="price-form-${id}">
   <div class="container">
     <div class="row mt">
-      <div class="col"><input type="text" id="date-from-${id}" class="datepicker-here form-control" placeholder="Başlangıç Tarihi" data-language="en"></div>
-      <div class="col"><input type="text" id="date-to-${id}" class="datepicker-here form-control" placeholder="Bitiş Tarihi" data-language="en"></div>
+      <div class="col"><input  name="formStartDate"  type="text" id="date-from-${id}" class="datepicker-here form-control" placeholder="Başlangıç Tarihi" data-language="en"></div>
+      <div class="col"><input  name="formEndDate"  type="text" id="date-to-${id}" class="datepicker-here form-control" placeholder="Bitiş Tarihi" data-language="en"></div>
     </div>
     <div class="row mt-4">
     <div class="w-100"></div>
-    <div class="col"><input type="text" id="date-from-${id}" class=" form-control" placeholder="Currency" data-language="en"></div>
-    <div class="col"> <input type="number" id="normal-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="Normal Fiyat" step="0.01"></div>
+    <div class="col"><input type="text"  name="formCurrency"  id="currency-${id}" class=" form-control" placeholder="Currency" data-language="en"></div>
+    <div class="col"> <input type="number"  name="formNormalPrice"  id="normal-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="Normal Fiyat" step="0.01"></div>
   </div>  
     <div class="row mt-4">
       <div class="w-100"></div>
-      <div class="col"> <input type="number" id="discounted-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="İndirimli Fiyat" step="0.01"></div>
-      <div class="col"><input type="number" class="form-control price-calc-${id}" data-changed="false" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
+      <div class="col"> <input type="number"  name="formDiscountedPrice"  id="discounted-price-${id}" data-changed="false" class="form-control price-calc-${id}" placeholder="İndirimli Fiyat" step="0.01"></div>
+      <div class="col"><input type="number"  name="formDiscountRatio"  class="form-control price-calc-${id}" data-changed="false" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
     </div> 
     <div class="row mt-4">
       <div class="w-100"></div>
@@ -144,7 +144,7 @@ function addColorSelect(id) {
   $(`#option-details-${id}`)
     .append(`<div id="pickr-${id}" class="input-group-sm  d-inline-flex" ><div class="pickr-${id}"> </div>
 
-      <input type="text" class="form-control ml-2" id="color-name-${id}" placeholder="Renk Adı" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" name="formColor" class="form-control ml-2" id="color-name-${id}" placeholder="Renk Adı" aria-label="Username" aria-describedby="basic-addon1">
     </div>`);
   const pickr = Pickr.create({
     el: `.pickr-${id}`,
@@ -174,7 +174,7 @@ function addColorSelect(id) {
     console.log(colorArray);
     $(`#color-options-0`).append(`<div class="btn-group-toggle" data-toggle="buttons">
     <label class="btn btn-secondary color-checkbox" style="background-color: ${color.toRGBA().toString()};">
-      <input type="checkbox" autocomplete="off">
+      <input  name="formCheckbox"  type="checkbox" autocomplete="off">
     </label>
   </div>
    `);
@@ -209,7 +209,7 @@ function addOption(id) {
       $(`#option-details-${id}`)
         .append(`<div id="other-${id}" class="input-group-inline  d-inline-flex" >
 
-      <input type="text" class="form-control ml-2" id="other-option-${id}" placeholder="Seçenek" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text"  name="formOption"  class="form-control ml-2" id="other-option-${id}" placeholder="Seçenek" aria-label="Username" aria-describedby="basic-addon1">
     </div>`);
     }
   });
@@ -218,8 +218,65 @@ function addOption(id) {
     addOption(`${optionCount}`);
   });
 }
+
+$("#submit-button").click(event => {
+  
+  console.log($('#title-0').val());
+  fetch('http://localhost:5000/newproduct', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: $('[name="formTitle"]').value ,
+  description:formDescription.value,
+  imageURL: formImg.value,
+  options: {
+    color1: {
+      type: 'color',
+      text: 'rgba(128, 0, 0, 1)',
+      value: 'rgba(128, 0, 0, 1)',
+    },
+    color2: {
+      type: 'color',
+      text: 'rgba(0, 128, 128, 1)',
+      value: 'rgba(0, 128, 128, 1)',
+    },
+    size1: {
+      type: 'size',
+      text: 'S',
+      value: 's',
+    },
+  },
+  prices: [
+    {
+      validFrom: formStartDate.value,
+      validTo: formEndDate.value,
+      currency: formCurrency.value,
+      originalPrice: formNormalPrice.value,
+      discountedPrice: formDiscountedPrice.value,
+      discountRate: formDiscountRatio.value,
+      // stock: '10',
+      // isActive: 'true',
+      options: ['color1', 'size1'],
+    },
+  ],
+    })
+  }).then(response => response.json())
+  .then(data => {
+    console.log('Request succeeded with JSON response', data);
+  }).catch( error => {
+    console.log('Request failed', error); 
+  })
+})
 $(document).ready(function() {
   addNewProduct(0);
   addOption(0);
   addPrice(0);
+
+  async function test() {
+    return "hello";
+  }
+
+
 });
