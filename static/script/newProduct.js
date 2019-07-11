@@ -55,7 +55,7 @@ function newPrice(id) {
     <div class="row mt-4">
       <div class="w-100"></div>
       <div class="col"> <input type="number" class="form-control price-calc-${id}" data-changed="false" placeholder="İndirim Oranı" id="discount-rate-${id}"></div>
-      <div class="col" id="color-options-${id}"></div>
+      <div class="col d-flex" id="color-options-${id}"></div>
     </div>  
     <div class="row mt-4">
       <div class="w-100"></div>
@@ -138,7 +138,12 @@ function addColorSelect(id) {
   pickr.on('save', (color, instance) => {
     colorArray.push(color);
     console.log(colorArray);
-    $(`#color-options-0`).append(`<input type="checkbox" id="checkbox" class="round" style="background-color: ${color.toRGBA().toString()};"></input>`);
+    $(`#color-options-0`).append(`<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary color-checkbox" style="background-color: ${color.toRGBA().toString()};">
+      <input type="checkbox" autocomplete="off">
+    </label>
+  </div>
+   `);
   });
 }
 
