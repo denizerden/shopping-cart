@@ -1,7 +1,7 @@
 let colorArray = [];
 let optionCount = 0;
 let priceCount = 0;
-let productCount= 0;
+let productCount = 0;
 
 function calc(id) {
   let lastTwo = $(`#price-form-${id}`).data('lastTwo');
@@ -172,8 +172,11 @@ function addColorSelect(id) {
   pickr.on('save', (color, instance) => {
     colorArray.push(color);
     console.log(colorArray);
-    $(`#color-options-0`).append(`<div class="btn-group-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary color-checkbox" style="background-color: ${color.toRGBA().toString()};">
+    $(`#color-options-0`)
+      .append(`<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary color-checkbox" style="background-color: ${color
+      .toRGBA()
+      .toString()};">
       <input  name="formCheckbox"  type="checkbox" autocomplete="off">
     </label>
   </div>
@@ -185,9 +188,6 @@ function addNewProduct(id) {
   $('#dynamic-field-2').append(newProductForm(id));
 
   //console.log(id)
- 
-    
- 
 }
 
 function addOption(id) {
@@ -219,64 +219,65 @@ function addOption(id) {
   });
 }
 
-$("#submit-button").click(event => {
-  
-  console.log($('#title-0').val());
+$('#submit-button').click(event => {
+  // console.log($('#title-0').val());
+  const data = {
+    title: $('[name="formTitle"]').val(),
+    description: $('[name="formDescription"]').val(),
+    imageURL: $('[name="formImg"]').val(),
+    options: {
+      color1: {
+        type: 'color',
+        text: 'rgba(128, 0, 0, 1)',
+        value: 'rgba(128, 0, 0, 1)',
+      },
+      color2: {
+        type: 'color',
+        text: 'rgba(0, 128, 128, 1)',
+        value: 'rgba(0, 128, 128, 1)',
+      },
+      size1: {
+        type: 'size',
+        text: 'S',
+        value: 's',
+      },
+    },
+    prices: [
+      {
+        validFrom: $('[name="formStartDate"]').val(),
+        validTo: $('[name="formEndDate"]').val(),
+        currency: $('[name="formCurrency"]').val(),
+        originalPrice: $('[name="formNormalPrice"]').val(),
+        discountedPrice: $('[name="formDiscountedPrice"]').val(),
+        discountRate: $('[name="formDiscountRatio"]').val(),
+        // stock: '10',
+        // isActive: 'true',
+        options: ['color1', 'size1'],
+      },
+    ],
+  };
+  console.log(data);
   fetch('http://localhost:5000/newproduct', {
     method: 'post',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      title: $('[name="formTitle"]').value ,
-  description: $('[name="formDescription"]').value,
-  imageURL:  $('[name="formImg"]').value,
-  options: {
-    color1: {
-      type: 'color',
-      text: 'rgba(128, 0, 0, 1)',
-      value: 'rgba(128, 0, 0, 1)',
-    },
-    color2: {
-      type: 'color',
-      text: 'rgba(0, 128, 128, 1)',
-      value: 'rgba(0, 128, 128, 1)',
-    },
-    size1: {
-      type: 'size',
-      text: 'S',
-      value: 's',
-    },
-  },
-  prices: [
-    {
-      validFrom:  $('[name="formStartDate"]').value,
-      validTo:  $('[name="formEndDate"]').value,
-      currency:  $('[name="formCurrency"]').value,
-      originalPrice:  $('[name="formNormalPrice"]').value,
-      discountedPrice:  $('[name="formDiscountedPrice"]').value,
-      discountRate: $('[name="formDiscountRatio"]').value,
-      // stock: '10',
-      // isActive: 'true',
-      options: ['color1', 'size1'],
-    },
-  ],
-    })
-  }).then(response => response.json())
-  .then(data => {
-    console.log('Request succeeded with JSON response', data);
-  }).catch( error => {
-    console.log('Request failed', error); 
+    body: JSON.stringify(data),
   })
-})
+    .then(response => response.json())
+    .then(data => {
+      console.log('Request succeeded with JSON response', data);
+    })
+    .catch(error => {
+      console.log('Request failed', error);
+    });
+});
 $(document).ready(function() {
   addNewProduct(0);
   addOption(0);
   addPrice(0);
 
   async function test() {
-    return "hello";
+    return 'hello';
   }
-
-
 });
