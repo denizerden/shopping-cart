@@ -229,8 +229,8 @@ $("#submit-button").click(event => {
     },
     body: JSON.stringify({
       title: $('[name="formTitle"]').value ,
-  description:formDescription.value,
-  imageURL: formImg.value,
+  description: $('[name="formDescription"]').value,
+  imageURL:  $('[name="formImg"]').value,
   options: {
     color1: {
       type: 'color',
@@ -250,12 +250,12 @@ $("#submit-button").click(event => {
   },
   prices: [
     {
-      validFrom: formStartDate.value,
-      validTo: formEndDate.value,
-      currency: formCurrency.value,
-      originalPrice: formNormalPrice.value,
-      discountedPrice: formDiscountedPrice.value,
-      discountRate: formDiscountRatio.value,
+      validFrom:  $('[name="formStartDate"]').value,
+      validTo:  $('[name="formEndDate"]').value,
+      currency:  $('[name="formCurrency"]').value,
+      originalPrice:  $('[name="formNormalPrice"]').value,
+      discountedPrice:  $('[name="formDiscountedPrice"]').value,
+      discountRate: $('[name="formDiscountRatio"]').value,
       // stock: '10',
       // isActive: 'true',
       options: ['color1', 'size1'],
