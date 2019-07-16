@@ -225,7 +225,7 @@ function addOption(id) {
       "colorName" : $(`#color-name-${id}`).val(),
       "colorCode" : $(`#pickr-${id} > .pickr > button`).css('color')
     };
-    colorArray.push(colorObject);
+    colorArray[''+id]= colorObject;
     console.log(colorArray);
   });
   
