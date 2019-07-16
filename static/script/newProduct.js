@@ -228,8 +228,8 @@ $('#submit-button').click(event => {
     options: {
       color1: {
         type: 'color',
-        text: 'rgba(128, 0, 0, 1)',
-        value: 'rgba(128, 0, 0, 1)',
+        text: colorArray[0].toString(),
+        value: colorArray[0].toString(),
       },
       color2: {
         type: 'color',
