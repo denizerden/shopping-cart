@@ -2,6 +2,7 @@ let colorArray = [];
 let optionCount = 0;
 let priceCount = 0;
 let productCount = 0;
+let colorObject = {};
 
 function calc(id) {
   let lastTwo = $(`#price-form-${id}`).data('lastTwo');
@@ -145,6 +146,7 @@ function addColorSelect(id) {
     .append(`<div id="pickr-${id}" class="input-group-sm  d-inline-flex" ><div class="pickr-${id}"> </div>
 
       <input type="text" name="formColor" class="form-control ml-2" id="color-name-${id}" placeholder="Renk Adı" aria-label="Username" aria-describedby="basic-addon1">
+      <button type="button" id="save-color-button-${id}" class="btn btn-sm btn-outline-primary ml-2">Kaydet</button>
     </div>`);
   const pickr = Pickr.create({
     el: `.pickr-${id}`,
@@ -170,7 +172,7 @@ function addColorSelect(id) {
   });
 
   pickr.on('save', (color, instance) => {
-    colorArray.push(color);
+    // colorArray.push(color);
     console.log(colorArray);
     $(`#color-options-0`)
       .append(`<div class="btn-group-toggle" data-toggle="buttons">
@@ -209,7 +211,7 @@ function addOption(id) {
       $(`#option-details-${id}`)
         .append(`<div id="other-${id}" class="input-group-inline  d-inline-flex" >
 
-      <input type="text"  name="formOption"  class="form-control ml-2" id="other-option-${id}" placeholder="Seçenek" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text"  name="formOption"  class="form-control ml-2" id="other-option-${id}" placeholder="Seçenek"  aria-describedby="basic-addon1">
     </div>`);
     }
   });
@@ -217,10 +219,23 @@ function addOption(id) {
     console.log('test');
     addOption(`${optionCount}`);
   });
+  $(`#save-color-button-${id}`).click(event => {
+    console.log('color saved');
+    colorObject = {
+      "colorName" : $(`#color-name-${id}`).val(),
+      "colorCode" : $(`#pickr-${id} > .pickr > button`).css('color')
+    };
+    colorArray.push(colorObject);
+    console.log(colorArray);
+  });
+  
 }
+
+
 
 $('#submit-button').click(event => {
   // console.log($('#title-0').val());
+  data.options = options
   const data = {
     title: $('[name="formTitle"]').val(),
     description: $('[name="formDescription"]').val(),
