@@ -176,10 +176,10 @@ function addColorSelect(id) {
     console.log(colorArray);
     $(`#color-options-0`)
       .append(`<div class="btn-group-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary color-checkbox" style="background-color: ${color
+    <label id="form-checkbox-${id}" class="btn btn-secondary color-checkbox" style="background-color: ${color
       .toRGBA()
       .toString()};">
-      <input  name="formCheckbox" id="${id}" type="checkbox" autocomplete="off">
+      <input  name="formCheckbox"  type="checkbox" autocomplete="off">
     </label>
   </div>
    `);
@@ -238,16 +238,20 @@ function addOption(id) {
 $('#submit-button').click(event => {
   // console.log($('#title-0').val());
   options = {};
-  for (let color of colorArray) {
-    options[color.name] = { type: 'color', text: 'name', value: color.colorCode };
-  } 
-  let checkedColors = [];
+  priceOptions = [];
   
-  $.each($("input[name='formCheckbox']:checked"), function(){            
-      let id = $(this).attr('id');
-      console.log(id)
-  });
-  console.log(checkedColors);
+  // $.each($("input[name='formCheckbox']:checked"), function(){            
+  //     let id = $(this).attr('id');
+  //     console.log(id)
+  // });
+  $('.color-checkbox.active').each(function(index, element) {
+    let id = $(element).attr('id').replace('form-checkbox-', '');
+    let color = colorArray[id];
+    options[color.colorName] = { type: 'color', text: color.colorName, value: color.colorCode };
+    priceOptions.push(color.colorName);
+  })
+
+  console.log(options);
   const data = {
     title: $('[name="formTitle"]').val(),
     description: $('[name="formDescription"]').val(),
@@ -263,8 +267,8 @@ $('#submit-button').click(event => {
         discountRate: $('[name="formDiscountRatio"]').val(),
         // stock: '10',
         // isActive: 'true',
-        options: ['color1', 'size1'],
-      },
+        options: priceOptions
+      }
     ],
   };
   console.log(data);

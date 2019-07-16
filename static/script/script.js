@@ -42,37 +42,37 @@ function saveCart() {
 function loadCart() {
   cart = JSON.parse(getCookie("cart"));
   let url = `http://${window.location.hostname}:5000/product`;
-  // $.ajax({
-  //   type: "POST",
-  //   url: url,
-  //   data: JSON.stringify(cart),
-  //   contentType: "application/json",
-  //   success: result => {
-  //     let products = JSON.parse(result);
-  //     let total = 0;
-  //     $("#items").html("");
-  //     for (let p of products) {
-  //       $("#items").html(
-  //         $("#items").html() +
-  //           '<li class="clearfix">\n' +
-  //           `<img src=\" ${p.image_file} \" alt=\"item1\" />\n` +
-  //           '                        <span class="item-name">' +
-  //           p.title +
-  //           " </span>\n" +
-  //           '                        <span class="item-price"> $' +
-  //           p.price +
-  //           " </span>\n" +
-  //           '                        <span class="item-quantity">Quantity: ' +
-  //           p.count +
-  //           " </span>\n" +
-  //           "                    </li>"
-  //       );
-  //       total += parseFloat(p.price) * parseInt(p.count);
-  //     }
-  //     $("#total").html(" $ " + total);
-  //   },
-  //   error: result => {}
-  // });
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: JSON.stringify(cart),
+    contentType: "application/json",
+    success: result => {
+      let products = JSON.parse(result);
+      let total = 0;
+      $("#items").html("");
+      for (let p of products) {
+        $("#items").html(
+          $("#items").html() +
+            '<li class="clearfix">\n' +
+            `<img src=\" ${p.image_file} \" alt=\"item1\" />\n` +
+            '                        <span class="item-name">' +
+            p.title +
+            " </span>\n" +
+            '                        <span class="item-price"> $' +
+            p.price +
+            " </span>\n" +
+            '                        <span class="item-quantity">Quantity: ' +
+            p.count +
+            " </span>\n" +
+            "                    </li>"
+        );
+        total += parseFloat(p.price) * parseInt(p.count);
+      }
+      $("#total").html(" $ " + total);
+    },
+    error: result => {}
+  });
 }
 
 $(document).ready(function() {

@@ -132,8 +132,8 @@ def product():
                 'id': str(product.id),
                 'title': product.title,
                 'description': product.description,
-                'price': str(product.price),
-                'image_url': product.imageURL,
+                'prices': product.prices,
+                'image_url': product.image_url,
                 'count': count
             })
         return json.dumps(result)
