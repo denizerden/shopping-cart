@@ -94,13 +94,14 @@ function newPrice(id) {
     <div class="row mt-4">
       <div class="w-100"></div>
       <div class="col"><button type="button" id="remove-button-${id}" class="btn btn-outline-danger">Fiyatları Sıfırla</button></div>
-      <div class="col"></div>
+      <div class="col"><button type="button" id="add-new-price-${id}" class="btn btn-outline-primary">Yeni Fiyat Ekle</button></div>
     </div> 
       
   </div>
 </div>
   `;
 }
+
 
 function addPrice(id) {
   priceCount++;
@@ -139,7 +140,12 @@ function addPrice(id) {
     $(`.price-calc-${id}`).val('');
     $(`.price-calc-${id}`).css('background-color', 'white');
   });
+  $(`#add-new-price-${id}`).click(function(){
+    id++
+    addPrice(id);
+  });
 }
+
 
 function addColorSelect(id) {
   $(`#option-details-${id}`)
@@ -173,7 +179,7 @@ function addColorSelect(id) {
 
   pickr.on('save', (color, instance) => {
     // colorArray.push(color);
-    console.log(colorArray);
+    console.log(id);
     $(`#color-options-0`)
       .append(`<div class="btn-group-toggle" data-toggle="buttons">
     <label id="form-checkbox-${id}" class="btn btn-secondary color-checkbox" style="background-color: ${color
@@ -183,6 +189,15 @@ function addColorSelect(id) {
     </label>
   </div>
    `);
+   $(`#color-options-1`)
+   .append(`<div class="btn-group-toggle" data-toggle="buttons">
+ <label id="form-checkbox-${id}" class="btn btn-secondary color-checkbox" style="background-color: ${color
+   .toRGBA()
+   .toString()};">
+   <input  name="formCheckbox"  type="checkbox" autocomplete="off">
+ </label>
+</div>
+`);
   });
 }
 function addNewProduct(id) {
