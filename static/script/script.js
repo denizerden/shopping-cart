@@ -55,29 +55,10 @@ function loadCart() {
       console.log(JSON.parse(result));
       let products = result;
       console.log(products);
-      let total = 0;
-      $("#items").html("");
-      for (let p of products) {
-        $("#items").html(
-          $("#items").html() +
-            '<li class="clearfix">\n' +
-            `<img src=\" ${p.image_file} \" alt=\"item1\" />\n` +
-            '                        <span class="item-name">' +
-            p.title +
-            " </span>\n" +
-            '                        <span class="item-price"> $' +
-            p.price +
-            " </span>\n" +
-            '                        <span class="item-quantity">Quantity: ' +
-            p.count +
-            " </span>\n" +
-            "                    </li>"
-        );
-        total += parseFloat(p.price) * parseInt(p.count);
-      }
-      $("#total").html(" $ " + total);
     },
-    error: result => {}
+    error: result => {
+      console.error(result);
+    }
   });
 }
 
