@@ -10,6 +10,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from __init__ import app
 from forms import LoginForm, RegisterForm
 from models import CartItem, Product, User, Option, Price
+from bson import json_util
 
 
 @app.route('/', methods=["POST", "GET"])
@@ -48,7 +49,7 @@ def new_product():
                     # stock=price['stock'],
                     # is_active=price['isActive'],
                     options=options
-                ).save()
+                )
                 prices.append(current)
             product = Product(
                 title=data['title'],
@@ -128,15 +129,30 @@ def product():
         result = []
         for _id, count in request_data.items():
             product = Product.objects.get(id=_id)
+            options = {}
+            prices = []
+            for price in product.prices:
+                for option in price.options:
+                    options[str(option.id)] = { 'type': option.option_type, 'text': option.option_text, 'value': option.option_value}
+                prices.append({
+                    'valid_from': price.valid_from,
+                    'valid_to': price.valid_to,
+                    'currency': price.currency,
+                    'original_price': float(price.original_price),
+                    'discounted_price': float(price.discounted_price),
+                    'discount_rate': float(price.discount_rate),
+                    'options': [option.id for option in price.options]
+                })
             result.append({
                 'id': str(product.id),
                 'title': product.title,
                 'description': product.description,
-                'prices': product.prices,
+                'prices': prices,
+                'options': options,
                 'image_url': product.image_url,
                 'count': count
             })
-        return json.dumps(result)
+        return json_util.dumps(result)
     else:
         try:
             product = Product.objects.get(id=product_id)

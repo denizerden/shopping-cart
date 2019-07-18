@@ -40,7 +40,11 @@ function saveCart() {
 }
 
 function loadCart() {
-  cart = JSON.parse(getCookie("cart"));
+  cartCookie = getCookie('cart');
+  if (cartCookie === '' || cartCookie === '{}') {
+    return;
+  }
+  cart = JSON.parse(cartCookie);
   let url = `http://${window.location.hostname}:5000/product`;
   $.ajax({
     type: "POST",
@@ -48,7 +52,9 @@ function loadCart() {
     data: JSON.stringify(cart),
     contentType: "application/json",
     success: result => {
-      let products = JSON.parse(result);
+      console.log(JSON.parse(result));
+      let products = result;
+      console.log(products);
       let total = 0;
       $("#items").html("");
       for (let p of products) {
@@ -76,7 +82,7 @@ function loadCart() {
 }
 
 $(document).ready(function() {
-  // loadCart();
+  loadCart();
 });
 
 function addItem(item) {

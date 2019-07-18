@@ -4,6 +4,7 @@ from mongoengine.fields import (
     BooleanField, DateTimeField, DecimalField, EmailField,
     EmbeddedDocumentField, EmbeddedDocumentListField, IntField, ListField,
     ObjectIdField, ReferenceField, StringField, LazyReferenceField)
+import bson
 
 
 class Option(Document):
@@ -13,7 +14,7 @@ class Option(Document):
     option_value = StringField(required=True)
 
 
-class Price(Document):
+class Price(EmbeddedDocument):
     valid_from = DateTimeField(required=True)
     valid_to = DateTimeField(required=True)
     currency = StringField(required=True)
@@ -22,7 +23,7 @@ class Price(Document):
     discount_rate = DecimalField(min_value=0, max_value=100, precision=4)
     # stock = IntField(min_value=0, required=True)
     # is_active = BooleanField(required=True)
-    options = ListField(LazyReferenceField(Option))
+    options = ListField(ReferenceField(Option))
 
 
 class Product(Document):
@@ -30,7 +31,9 @@ class Product(Document):
     description = StringField(required=True)
     image_url = StringField()
     created_on = DateTimeField(auto_now_add=True)
-    prices = ListField(LazyReferenceField(Price))
+    prices = ListField(EmbeddedDocumentField(Price))
+
+    
 
 
 class CartItem(EmbeddedDocument):

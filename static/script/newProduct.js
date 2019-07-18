@@ -12,7 +12,6 @@ function calc(id) {
       .splice(0, 2)
       .join('-');
   });
-  console.log(types);
   let np = $(`#normal-price-${id}`).val();
   let dp = $(`#discounted-price-${id}`).val();
   let dr = $(`#discount-rate-${id}`).val();
@@ -30,14 +29,16 @@ function calc(id) {
 
 function newForm(id) {
   return `
-
-  <tr>
-                            <td><select class="form-control" id="form-${id}">
-                                <option>Renk</option>
-                                <option>Diğer</option>     
-                            </select></td>
-                            <td id="option-details-${id}"><button class="btn btn-primary float-right" type="button" id="add-new-option-${id}">Seçenek Ekle</button></td>
-                        </tr>
+  <div class="form-row mb-3">
+    <div class="col-3">
+      <select class="form-control" id="form-${id}">
+        <option>Renk</option>
+        <option>Diğer</option>     
+      </select>
+    </div>
+    <div class="col-9" id="option-details-${id}"></div>
+      
+  </div>
 `;
 }
 function newProductForm(id) {
@@ -124,7 +125,6 @@ function addPrice(id) {
         lastTwo = lastTwo.splice(1);
       }
       $(`#price-form-${id}`).data('lastTwo', lastTwo);
-      console.log($(`#price-form-${id}`).data('lastTwo'));
     }
     lastTwo.forEach(el => {
       $(`#${el.id}`).css('background-color', 'lightblue');
@@ -149,10 +149,16 @@ function addPrice(id) {
 
 function addColorSelect(id) {
   $(`#option-details-${id}`)
-    .append(`<div id="pickr-${id}" class="input-group-sm  d-inline-flex" ><div class="pickr-${id}"> </div>
-
-      <input type="text" name="formColor" class="form-control ml-2" id="color-name-${id}" placeholder="Renk Adı" aria-label="Username" aria-describedby="basic-addon1">
-      <button type="button" id="save-color-button-${id}" class="btn btn-sm btn-outline-primary ml-2">Kaydet</button>
+    .append(`<div id="pickr-${id}" class="form-row d-inline-flex" >
+      <div class="col-1">
+        <div class="pickr-${id}"></div>
+      </div>
+      <div class="col-8">
+        <input type="text" name="formColor" class="form-control ml-2" id="color-name-${id}" placeholder="Renk Adı" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div class="col-3">
+        <button type="button" id="save-color-button-${id}" class="btn btn-sm btn-outline-primary ml-2">Kaydet</button>
+      </div>
     </div>`);
   const pickr = Pickr.create({
     el: `.pickr-${id}`,
@@ -178,8 +184,6 @@ function addColorSelect(id) {
   });
 
   pickr.on('save', (color, instance) => {
-    // colorArray.push(color);
-    console.log(id);
     $(`#color-options-0`)
       .append(`<div class="btn-group-toggle" data-toggle="buttons">
     <label id="form-checkbox-${id}" class="btn btn-secondary color-checkbox" style="background-color: ${color
@@ -203,45 +207,41 @@ function addColorSelect(id) {
 function addNewProduct(id) {
   productCount++;
   $('#dynamic-field-2').append(newProductForm(id));
-
-  //console.log(id)
 }
 
 function addOption(id) {
   optionCount++;
   $('#dynamic-field').append(newForm(id));
   addColorSelect(id);
-  //console.log(id)
   $(`#form-${id}`).change(function(event) {
     let element = event.target;
-    //console.log(element)
     let selectedOption = element.options[element.selectedIndex].value;
 
     if (selectedOption === 'Renk') {
       $(`#other-${id}`).remove();
-      console.log('renk seçildi');
       addColorSelect(id);
     } else if (selectedOption === 'Diğer') {
       $(`#pickr-${id}`).remove();
       $(`#option-details-${id}`)
-        .append(`<div id="other-${id}" class="input-group-inline  d-inline-flex" >
-
-      <input type="text"  name="formOption"  class="form-control ml-2" id="other-option-${id}" placeholder="Seçenek"  aria-describedby="basic-addon1">
-    </div>`);
+        .append(`
+          <div id="other-${id}" class="form-row d-inline-flex">
+          <div class="col-9">
+            <input type="text"  name="formOption"  class="form-control" id="other-option-${id} ml-3 w-100" placeholder="Seçenek">
+          </div>
+          <div class="col-3">
+              <button type="button" id="save-option-button-${id}" class="btn btn-sm btn-outline-primary ml-2">Kaydet</button>
+          </div>
+          </div>
+        `);
     }
   });
-  $(`#add-new-option-${id}`).click(event => {
-    console.log('test');
-    addOption(`${optionCount}`);
-  });
+  
   $(`#save-color-button-${id}`).click(event => {
-    console.log('color saved');
     colorObject = {
       "colorName" : $(`#color-name-${id}`).val(),
-      "colorCode" : $(`#pickr-${id} > .pickr > button`).css('color')
+      "colorCode" : $(`#pickr-${id} > div > .pickr > button`).css('color')
     };
     colorArray[''+id]= colorObject;
-    console.log(colorArray);
   });
   
 }
@@ -251,14 +251,8 @@ function addOption(id) {
 
   
 $('#submit-button').click(event => {
-  // console.log($('#title-0').val());
   options = {};
   priceOptions = [];
-  
-  // $.each($("input[name='formCheckbox']:checked"), function(){            
-  //     let id = $(this).attr('id');
-  //     console.log(id)
-  // });
   $('.color-checkbox.active').each(function(index, element) {
     let id = $(element).attr('id').replace('form-checkbox-', '');
     let color = colorArray[id];
@@ -266,7 +260,6 @@ $('#submit-button').click(event => {
     priceOptions.push(color.colorName);
   })
 
-  console.log(options);
   const data = {
     title: $('[name="formTitle"]').val(),
     description: $('[name="formDescription"]').val(),
@@ -280,13 +273,10 @@ $('#submit-button').click(event => {
         originalPrice: $('[name="formNormalPrice"]').val(),
         discountedPrice: $('[name="formDiscountedPrice"]').val(),
         discountRate: $('[name="formDiscountRatio"]').val(),
-        // stock: '10',
-        // isActive: 'true',
         options: priceOptions
       }
     ],
   };
-  console.log(data);
   fetch('http://localhost:5000/newproduct', {
     method: 'post',
     headers: {
@@ -306,6 +296,9 @@ $(document).ready(function() {
   addNewProduct(0);
   addOption(0);
   addPrice(0);
+  $(`#add-new-option-0`).click(event => {
+    addOption(`${optionCount}`);
+  });
 
   async function test() {
     return 'hello';
