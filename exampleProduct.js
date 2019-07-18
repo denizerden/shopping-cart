@@ -6,13 +6,13 @@ const frontEndData = {
   options: {
     color1: {
       type: 'color',
-      text: 'rgba(128, 0, 0, 1)',
+      text: 'kirmizi',
       value: 'rgba(128, 0, 0, 1)',
     },
     color2: {
       type: 'color',
-      text: 'rgba(0, 128, 128, 1)',
-      value: 'rgba(0, 128, 128, 1)',
+      text: 'mavi',
+      value: 'rgba(0, 128, 255, 1)',
     },
     size1: {
       type: 'size',

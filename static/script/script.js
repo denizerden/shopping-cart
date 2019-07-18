@@ -1,4 +1,4 @@
-let cart = {};
+let cart = [];
 
 function getQueryVariable(variable) {
   let query = window.location.search.substring(1);
@@ -12,11 +12,22 @@ function getQueryVariable(variable) {
 }
 
 $(document).ready(() => {
+  loadCart();
+  for (let product of cart) {
+    console.log('--------------------');
+    console.log(`(${product.count}) ${product.title}: ${product.description}`);
+    for (let price of product.prices) {
+      for (let {$oid} of price.options) {
+        console.log(product.options[$oid]);
+        console.log(`${price.original_price} => ${price.discounted_price}`);
+      }
+    }
+    console.log('--------------------');
+  }
   $("#addToCartBtn").click(function() {
     let product_id = getQueryVariable("id");
     let count = parseInt($("#counter").val());
-    addItem(new Item(product_id, count));
-    loadCart();
+    addToCart(product_id, count);
   });
 
   $("#minusButton").click(function() {
@@ -39,32 +50,53 @@ function saveCart() {
   setCookie(JSON.stringify(cart));
 }
 
-function loadCart() {
-  cartCookie = getCookie('cart');
-  if (cartCookie === '' || cartCookie === '{}') {
-    return;
+function getProductCount(id) {
+  if (cart === undefined || cart.length === 0) {
+    return -1;
   }
-  cart = JSON.parse(cartCookie);
-  let url = `http://${window.location.hostname}:5000/product`;
-  $.ajax({
-    type: "POST",
-    url: url,
-    data: JSON.stringify(cart),
-    contentType: "application/json",
-    success: result => {
-      console.log(JSON.parse(result));
-      let products = result;
-      console.log(products);
-    },
-    error: result => {
-      console.error(result);
+  for (let i = 0; i < cart.length; i++) {
+    const product = cart[i];
+    if (product['id'] === id) {
+      return i;
     }
-  });
+  }
+  return -1;
 }
 
-$(document).ready(function() {
-  loadCart();
-});
+function addToCart(id, count) {
+  let found = false;
+  let data = {};
+  let index = getProductCount(id);
+  if (index !== -1) {
+    data[id] = cart[index].count + count;
+  } else {
+    data[id] = count;
+  }
+  let url = `http://${window.location.hostname}:5000/product`;
+  $.ajax({
+    type: 'POST',
+    url,
+    data: JSON.stringify(data),
+    contentType: 'application/json',
+    success: result => {
+      let product = JSON.parse(result);
+      let index = getProductCount(id);
+      if (index !== -1) {
+        cart[index] = product;
+      } else {
+        cart.push(product);
+      }
+      setCookie(JSON.stringify(cart));
+    },
+    error: err => {
+      // TODO
+    }
+  })
+}
+
+function loadCart() {
+  cart = JSON.parse(getCookie('cart'));
+}
 
 function addItem(item) {
   if (cart[item.id]) {

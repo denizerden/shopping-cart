@@ -143,7 +143,7 @@ def product():
                     'discount_rate': float(price.discount_rate),
                     'options': [option.id for option in price.options]
                 })
-            result.append({
+            result = {
                 'id': str(product.id),
                 'title': product.title,
                 'description': product.description,
@@ -151,7 +151,7 @@ def product():
                 'options': options,
                 'image_url': product.image_url,
                 'count': count
-            })
+            }
         return json_util.dumps(result)
     else:
         try:
