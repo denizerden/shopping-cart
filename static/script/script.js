@@ -21,6 +21,7 @@ $(document).ready(() => {
     success: function(result) {
         product = JSON.parse(result);
         console.log(product);
+        options();
     }
   });
   $("#addToCartBtn").click(function() {
@@ -36,7 +37,28 @@ $(document).ready(() => {
   $("#plusButton").click(function() {
     $("#counter").val(parseInt($("#counter").val()) + 1);
   });
+
+ 
 });
+
+function options(){
+  let colorOptions = {};
+  console.log(product.options);
+  for (option_id in product.options){
+    const option = product.options[option_id];
+      console.log(option.type);
+      if(option.type === 'color'){
+        colorOptions += {
+          text : option.text,
+          value : option.value
+        }
+        console.log(JSON.parse(colorOptions));
+        $("#dropdownMenuButton").append(`<option value="${colorOptions.value}">${colorOptions.text}</option>`);
+      }
+  }
+  // console.log(colorOptions);
+ 
+}
 
 class Item {
   constructor(id, count) {
