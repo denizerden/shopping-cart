@@ -124,12 +124,12 @@ a:hover {
 #product-title{
     height: 50%;
     top: 39%;
-    left: 25px;
+    /* left: 25px; */
 }
 @media (max-width:768px) {
 
   .col-6 {
-    right: 8px;
+    right: -8%;
   }
 
 
