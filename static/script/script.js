@@ -95,7 +95,13 @@ function addToCart(id, count) {
 }
 
 function loadCart() {
-  cart = JSON.parse(getCookie('cart'));
+  let cookie = getCookie('cart');
+  if(cookie === ''){
+    cart = [];
+  }else{
+    cart = JSON.parse(cookie);
+  }
+  
 }
 
 function addItem(item) {
