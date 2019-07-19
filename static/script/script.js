@@ -1,4 +1,5 @@
 let cart = [];
+let product;
 
 function getQueryVariable(variable) {
   let query = window.location.search.substring(1);
@@ -13,17 +14,15 @@ function getQueryVariable(variable) {
 
 $(document).ready(() => {
   loadCart();
-  for (let product of cart) {
-    console.log('--------------------');
-    console.log(`(${product.count}) ${product.title}: ${product.description}`);
-    for (let price of product.prices) {
-      for (let {$oid} of price.options) {
-        console.log(product.options[$oid]);
-        console.log(`${price.original_price} => ${price.discounted_price}`);
-      }
+  $.ajax({
+    type: 'post',
+    url: document.URL,
+    contentType: 'application/json',
+    success: function(result) {
+        product = JSON.parse(result);
+        console.log(product);
     }
-    console.log('--------------------');
-  }
+  });
   $("#addToCartBtn").click(function() {
     let product_id = getQueryVariable("id");
     let count = parseInt($("#counter").val());
