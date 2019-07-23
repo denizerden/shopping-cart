@@ -37,23 +37,30 @@ $(document).ready(() => {
   $("#plusButton").click(function() {
     $("#counter").val(parseInt($("#counter").val()) + 1);
   });
-
+  
+   let selectedValue = $( "#select-list option:selected" ).text();
+   $("#price").text();
  
 });
 
 function options(){
-  let colorOptions = {};
+  let colorOptions =[{ }] ;
   console.log(product.options);
   for (option_id in product.options){
     const option = product.options[option_id];
-      console.log(option.type);
+      console.log(option);
       if(option.type === 'color'){
-        colorOptions += {
-          text : option.text,
-          value : option.value
-        }
-        console.log(JSON.parse(colorOptions));
-        $("#dropdownMenuButton").append(`<option value="${colorOptions.value}">${colorOptions.text}</option>`);
+        // colorOptions = ( {
+        //   text : "mavi",
+        //   value : "rgb(13, 30, 220)"
+        // });
+        // console.log(colorOptions);
+
+        let select = document.getElementById("select-list");
+        
+        select.options[select.options.length] = new Option(option.text,product.options[option_id].option_id);
+        console.log($( "#select-list option:selected" ).val());
+       
       }
   }
   // console.log(colorOptions);

@@ -129,7 +129,7 @@ a:hover {
 @media (max-width:768px) {
 
   .col-6 {
-    right: -8%;
+    /* right: -8%; */
   }
 
 
@@ -273,4 +273,8 @@ a:hover {
  height: 1.75rem;
   border: 3.5px solid pink;
   border-color: #9B9DB1!important;
+}
+
+#select-list {
+  width: 110%;
 }
