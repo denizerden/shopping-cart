@@ -3,9 +3,9 @@ let product;
 
 function getQueryVariable(variable) {
   let query = window.location.search.substring(1);
-  let vars = query.split("&");
+  let vars = query.split('&');
   for (let i = 0; i < vars.length; i++) {
-    let pair = vars[i].split("=");
+    let pair = vars[i].split('=');
     if (pair[0] == variable) {
       return pair[1];
     }
@@ -19,52 +19,52 @@ $(document).ready(() => {
     url: document.URL,
     contentType: 'application/json',
     success: function(result) {
-        product = JSON.parse(result);
-        console.log(product);
-        options();
-    }
+      product = JSON.parse(result);
+      console.log(product);
+      options();
+    },
   });
-  $("#addToCartBtn").click(function() {
-    let product_id = getQueryVariable("id");
-    let count = parseInt($("#counter").val());
+  $('#addToCartBtn').click(function() {
+    let product_id = getQueryVariable('id');
+    let count = parseInt($('#counter').val());
     addToCart(product_id, count);
   });
 
-  $("#minusButton").click(function() {
-    $("#counter").val(parseInt($("#counter").val()) - 1);
+  $('#minusButton').click(function() {
+    $('#counter').val(parseInt($('#counter').val()) - 1);
   });
 
-  $("#plusButton").click(function() {
-    $("#counter").val(parseInt($("#counter").val()) + 1);
+  $('#plusButton').click(function() {
+    $('#counter').val(parseInt($('#counter').val()) + 1);
   });
-  
-   let selectedValue = $( "#select-list option:selected" ).text();
-   $("#price").text();
- 
+
+  let selectedValue = $('#select-list option:selected').text();
+  $('#price').text();
 });
 
-function options(){
-  let colorOptions =[{ }] ;
+function options() {
+  let colorOptions = [{}];
   console.log(product.options);
-  for (option_id in product.options){
+  for (option_id in product.options) {
     const option = product.options[option_id];
-      console.log(option);
-      if(option.type === 'color'){
-        // colorOptions = ( {
-        //   text : "mavi",
-        //   value : "rgb(13, 30, 220)"
-        // });
-        // console.log(colorOptions);
+    console.log(option);
+    if (option.type === 'color') {
+      // colorOptions = ( {
+      //   text : "mavi",
+      //   value : "rgb(13, 30, 220)"
+      // });
+      // console.log(colorOptions);
 
-        let select = document.getElementById("select-list");
-        
-        select.options[select.options.length] = new Option(option.text,product.options[option_id].option_id);
-        console.log($( "#select-list option:selected" ).val());
-       
-      }
+      let select = document.getElementById('select-list');
+
+      select.options[select.options.length] = new Option(
+        option.text,
+        product.options[option_id].option_id
+      );
+      console.log($('#select-list option:selected').val());
+    }
   }
   // console.log(colorOptions);
- 
 }
 
 class Item {
@@ -100,7 +100,7 @@ function addToCart(id, count) {
   } else {
     data[id] = count;
   }
-  let url = `http://${window.location.hostname}:5000/product`;
+  let url = `http://${window.location.hostname}:5000/cart`;
   $.ajax({
     type: 'POST',
     url,
@@ -118,18 +118,17 @@ function addToCart(id, count) {
     },
     error: err => {
       // TODO
-    }
-  })
+    },
+  });
 }
 
 function loadCart() {
   let cookie = getCookie('cart');
-  if(cookie === ''){
+  if (cookie === '') {
     cart = [];
-  }else{
+  } else {
     cart = JSON.parse(cookie);
   }
-  
 }
 
 function addItem(item) {
@@ -158,26 +157,26 @@ function removeItem(item) {
 }
 
 function setCookie(item) {
-  document.cookie = "cart = " + item;
+  document.cookie = 'cart = ' + item;
 }
 function getCookie(item) {
-  let name = item + "=";
+  let name = item + '=';
   let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(";");
+  let ca = decodedCookie.split(';');
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while (c.charAt(0) == " ") {
+    while (c.charAt(0) == ' ') {
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
       return c.substring(name.length, c.length);
     }
   }
-  return "";
+  return '';
 }
 
 (function() {
-  $("#cart").on("click", function() {
-    $(".shopping-cart").fadeToggle("fast");
+  $('#cart').on('click', function() {
+    $('.shopping-cart').fadeToggle('fast');
   });
 })();
