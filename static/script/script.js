@@ -19,6 +19,7 @@ $(document).ready(() => {
     url: document.URL,
     contentType: 'application/json',
     success: function(result) {
+    
       product = JSON.parse(result);
       console.log(product);
       options();
@@ -115,6 +116,7 @@ function addToCart(id, count) {
         cart.push(product);
       }
       setCookie(JSON.stringify(cart));
+      setCart();
     },
     error: err => {
       // TODO
@@ -129,6 +131,37 @@ function loadCart() {
   } else {
     cart = JSON.parse(cookie);
   }
+}
+
+function setCart(){
+     
+      let totalPrice = 0;
+      let productArray = JSON.parse(getCookie('cart'));
+      // let displayImg = $("#displayImg");
+    	// let displayTitle = $("#displayTitle");
+      // let displayPrice = $("#displayPrice");
+      // let displayCurrency = $("#displayCurrency");
+      // let displayCount = $("#displayCount");
+    	for (let product in productArray) {
+        // let image = document.createElement("IMG");
+        // // image.alt = "Alt information for image";
+        // image.setAttribute('class', 'photo');
+        // image.style.width = "5vw";
+        // image.src=productArray[product].image_url;
+        // // console.log(productArray[product]);
+        // displayImg.html(image)  ;
+    		// displayTitle.html(productArray[product].title)  ;
+    		// displayPrice.html(productArray[product].prices[0].original_price)  ;
+        // displayCurrency.html(productArray[product].prices[0].currency)  ;
+        // displayCount.html(productArray[product].count)  ;
+        $("#shopping-cart-total").html(` <span class="total" id="displayImg" src="${productArray[product].image_url}" style="5vw"> </span>
+        <span class="total" id="displayTitle">${productArray[product].title} </span>
+        <span class="total" id="displayPrice">${productArray[product].prices[0].original_price} </span>
+        <span class="total" id="displayCurrency">${productArray[product].prices[0].currency} </span>
+        <span class="total" id="displayCount">${productArray[product].count} </span>
+        <span class="total" id="total"> </span>`)
+    
+    	} 
 }
 
 function addItem(item) {
@@ -178,5 +211,6 @@ function getCookie(item) {
 (function() {
   $('#cart').on('click', function() {
     $('.shopping-cart').fadeToggle('fast');
+    setCart();
   });
 })();
