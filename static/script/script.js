@@ -131,34 +131,35 @@ function loadCart() {
   } else {
     cart = JSON.parse(cookie);
   }
+  setCart();
 }
 
 function setCart(){
      
       let totalPrice = 0;
-      let productArray = JSON.parse(getCookie('cart'));
       // let displayImg = $("#displayImg");
     	// let displayTitle = $("#displayTitle");
       // let displayPrice = $("#displayPrice");
       // let displayCurrency = $("#displayCurrency");
       // let displayCount = $("#displayCount");
-    	for (let product in productArray) {
+      $("#shopping-cart-total").html("");
+    	for (let product in cart) {
         // let image = document.createElement("IMG");
         // // image.alt = "Alt information for image";
         // image.setAttribute('class', 'photo');
         // image.style.width = "5vw";
-        // image.src=productArray[product].image_url;
-        // // console.log(productArray[product]);
+        // image.src=cart[product].image_url;
+        // // console.log(cart[product]);
         // displayImg.html(image)  ;
-    		// displayTitle.html(productArray[product].title)  ;
-    		// displayPrice.html(productArray[product].prices[0].original_price)  ;
-        // displayCurrency.html(productArray[product].prices[0].currency)  ;
-        // displayCount.html(productArray[product].count)  ;
-        $("#shopping-cart-total").html(` <span class="total" id="displayImg" src="${productArray[product].image_url}" style="5vw"> </span>
-        <span class="total" id="displayTitle">${productArray[product].title} </span>
-        <span class="total" id="displayPrice">${productArray[product].prices[0].original_price} </span>
-        <span class="total" id="displayCurrency">${productArray[product].prices[0].currency} </span>
-        <span class="total" id="displayCount">${productArray[product].count} </span>
+    		// displayTitle.html(cart[product].title)  ;
+    		// displayPrice.html(cart[product].prices[0].original_price)  ;
+        // displayCurrency.html(cart[product].prices[0].currency)  ;
+        // displayCount.html(cart[product].count)  ;
+        $("#shopping-cart-total").append(` <span class="total" id="displayImg" src="${cart[product].image_url}" style="5vw"> </span>
+        <span class="total" id="displayTitle">${cart[product].title} </span>
+        <span class="total" id="displayPrice">${cart[product].prices[0].original_price} </span>
+        <span class="total" id="displayCurrency">${cart[product].prices[0].currency} </span>
+        <span class="total" id="displayCount">${cart[product].count} </span>
         <span class="total" id="total"> </span>`)
     
     	} 
@@ -211,6 +212,5 @@ function getCookie(item) {
 (function() {
   $('#cart').on('click', function() {
     $('.shopping-cart').fadeToggle('fast');
-    setCart();
   });
 })();
