@@ -119,41 +119,44 @@ def logout():
     flash('You have been succesfully logged out', 'info')
     return redirect(url_for('home'))
 
-@app.route('/cart', methods=['POST'])
+@app.route('/cart', methods=['GET', 'POST'])
 def cart():
-    product = None
-    request_data = request.get_json()
-    result = []
-    for _id, count in request_data.items():
-        product = Product.objects.get(id=_id)
-        options = {}
-        prices = []
-        for price in product.prices:
-            for option in price.options:
-                options[str(option.id)] = {
-                    'type': option.option_type,
-                    'text': option.option_text,
-                    'value': option.option_value
+    if request.method == 'GET':
+        return render_template('cart.html', title='Cart')
+    elif request.method == 'POST':
+        product = None
+        request_data = request.get_json()
+        result = []
+        for _id, count in request_data.items():
+            product = Product.objects.get(id=_id)
+            options = {}
+            prices = []
+            for price in product.prices:
+                for option in price.options:
+                    options[str(option.id)] = {
+                        'type': option.option_type,
+                        'text': option.option_text,
+                        'value': option.option_value
+                    }
+                    prices.append({
+                        'valid_from': price.valid_from,
+                        'valid_to': price.valid_to,
+                        'currency': price.currency,
+                        'original_price': float(price.original_price),
+                        'discounted_price': float(price.discounted_price),
+                        'discount_rate': float(price.discount_rate),
+                        'options': [option.id for option in price.options]
+                    })
+                result = {
+                    'id': str(product.id),
+                    'title': product.title,
+                    'description': product.description,
+                    'prices': prices,
+                    'options': options,
+                    'image_url': product.image_url,
+                    'count': count
                 }
-                prices.append({
-                    'valid_from': price.valid_from,
-                    'valid_to': price.valid_to,
-                    'currency': price.currency,
-                    'original_price': float(price.original_price),
-                    'discounted_price': float(price.discounted_price),
-                    'discount_rate': float(price.discount_rate),
-                    'options': [option.id for option in price.options]
-                })
-            result = {
-                'id': str(product.id),
-                'title': product.title,
-                'description': product.description,
-                'prices': prices,
-                'options': options,
-                'image_url': product.image_url,
-                'count': count
-            }
-        return json_util.dumps(result)
+            return json_util.dumps(result)
 
 
 @app.route('/product', methods=['GET', 'POST'])
