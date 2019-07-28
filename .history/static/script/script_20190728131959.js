@@ -155,15 +155,12 @@ function setCart(){
     		// displayPrice.html(cart[product].prices[0].original_price)  ;
         // displayCurrency.html(cart[product].prices[0].currency)  ;
         // displayCount.html(cart[product].count)  ;
-        $("#shopping-cart-total").append(` 
-        <div class="row">
-        <span class="total" id="displayImg" ><img class="" src="${cart[product].image_url}"  style="width:5vw"></img> </span>
-        <span class="total" id="displayTitle"> ${cart[product].title} </span>
-        <span class="total" id="displayPrice"> ${cart[product].prices[0].original_price} </span>
-        <span class="total" id="displayCurrency"> ${cart[product].prices[0].currency} </span>
-        <span class="total" id="displayCount">  ${cart[product].count} </span>
-        <span class="total" id="total"> </span>
-        </div>`)
+        $("#shopping-cart-total").append(` <span class="total" id="displayImg" src="${cart[product].image_url}" style="5vw"> </span>
+        <span class="total" id="displayTitle">${cart[product].title} </span>
+        <span class="total" id="displayPrice">${cart[product].prices[0].original_price} </span>
+        <span class="total" id="displayCurrency">${cart[product].prices[0].currency} </span>
+        <span class="total" id="displayCount">${cart[product].count} </span>
+        <span class="total" id="total"> </span>`)
     
     	} 
 }
