@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container">
+        <div id="cart-items">
+           
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='script/cart.js') }}"></script>
+{% endblock javascript %}
