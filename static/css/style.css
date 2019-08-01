@@ -278,3 +278,7 @@ a:hover {
 #select-list {
   width: 110%;
 }
+
+#total-menu{
+  float: right;
+}

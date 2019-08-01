@@ -41,7 +41,8 @@ $(document).ready(function() {
           <button class="btn mr-1" type="button" id="plusButton">+</button>
       </div>
   </span></td>
-      <td>${product.prices[0].original_price} ${product.prices[0].currency}</td>
+      <td><button type="button" class="btn btn-danger" id="remove-button">Remove</button> </td>
+      <td> ${product.prices[0].currency} ${product.prices[0].original_price}</td>
 
       
     </tr>
@@ -51,6 +52,16 @@ $(document).ready(function() {
  `)
     
     }
+    
+    $('#total-menu').append(/* html */` 
+    <label>Total</label>
+    <div  id="cart-total">${calculateTotal()} </div>
+      
+    
+        
+        <button class="btn btn-primary checkout">Checkout</button>
+      `)
+    
 
     $('#minusButton').click(function() {
       $('#counter').val(parseInt($('#counter').val()) - 1);
@@ -59,5 +70,34 @@ $(document).ready(function() {
     $('#plusButton').click(function() {
       $('#counter').val(parseInt($('#counter').val()) + 1);
     });
+    $('#remove-button').click(function () {
+      console.log("remove");
+      removeItem(this);
+      
+    // $('#myTable').on('click', buttonSelector, function(){
+    //   $(this).closest ('tr').remove ();
+  });
 });
+function calculateTotal(){
+  loadCart();
+ let total =0;
+ let currency = "";
+  for(let product of cart){
+    
+    total += product.count * product.prices[0].original_price;
+    currency = product.prices[0].currency;
+  }
+  console.log(total);
+  return currency,total;
+}
 
+function removeItem(removeButton){
+   /* Remove row from DOM and recalc cart total */
+   let productRow = $(removeButton).parent().parent();
+   console.log(productRow)
+   productRow.slideUp( function() {
+     productRow.remove();
+
+     //recalculateCart();
+   });
+}
